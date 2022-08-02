@@ -1,0 +1,191 @@
+{% extends 'gari/main.html' %}
+{% load staticfiles %}
+{% block content %}
+    {% load humanize %}
+    <div class="grid-container">
+   <div class="card profile-card-action-icons2">
+  <div class="card-section">
+    <div class="profile-card-header">
+      <div class="profile-card-avatar">
+          {% if profile.logo %}
+        <img class="avatar-image" src="{{ profile.logo.url }}" alt="dealer-pic">
+          {% endif %}
+      <h5 class="" style="text-align: center">
+    <a href="tel:{{ vehicle.seller.profile.number }}">Call Dealer <i class="fa fa-phone " style="color:#002C3E" aria-hidden="true"></i> </a>
+        <a href="#" >Email Dealer <i class="fa fa-envelope " style="color:#002C3E" aria-hidden="true"></i></a></h5>
+      </div>
+      <div class="profile-card-author">
+        <h5 class="author-title">{{ profile.company|capfirst }}</h5>
+        <p class="author-description">{{ profile.county|capfirst }}</p>
+
+      </div>
+
+    </div>
+    <div class="profile-card-about">
+
+
+      <div class="callout">
+  <h4><strong>About Dealer</strong></h4>
+  <p class="p">{{ profile.description }} </p><br>
+
+</div>
+      </div>
+    </div>
+   {% if service %}
+      <h4><strong>Service Offered</strong></h4>
+  <div class="read-more-conten" id="read-more-content" data-toggler data-animate="hinge-in-from-top slide-out-right">
+    {% for service in service %}
+          <ul style="list-style-type: none">
+              <li style="float: left;  width: 50%"><i class="fa fa-check " style="color:#002C3E" aria-hidden="true"></i> {{ service.name }}</li>
+          </ul>
+        {% endfor %}
+
+  </div>
+      {% endif %}
+  </div>
+
+
+    </div>
+
+
+{% if used %}
+
+    <div class="content">
+<div class="wording">
+
+    <h4 style=" margin-left:25px;  font-size: 20px; color: darkblue; font-weight: bold"><strong>Used Cars</strong></h4>
+</div>
+
+<div class="multiple-items">
+    {% for vehicle in used %}
+<div class="card-flex-article card flex-container">
+ <a href="{{vehicle.get_absolute_url}}">
+  <div class="card-image">
+    <img src="{{vehicle.picture.url}}">
+    {% if vehicle.sponsored == True %}
+
+    <span class="label alert card-tag">Top Ad</span>
+    {% endif %}
+  </div>
+  <div class="card-section">
+      <h3 class="article-title" style="color: black">$ {{vehicle.price}}</h3>
+    <p class="article-tit" style="font-family: 'Merriweather', serif ;font-size: 16px; color: dimgray">{{vehicle.name}}</p>
+    <div class="article-details">
+
+
+      <span class="website">{{ vehicle.mileage }}  <i class="fa fa- " style="color:#002C3E" aria-hidden="true"></i></span> &#8226;
+     <span class="author">{{ vehicle.color }}  <i class="fa fa- " style="color:#002C3E" aria-hidden="true"></i> </span> &#8226;
+      <span class="author">{{ vehicle.year }}  </span>
+
+    </div>
+    <p class="article-summary" style="font-family: Merriweather; color: darkgrey">{{ vehicle.county }}</p>
+  </div>
+ </a>
+  </div>
+    {% endfor %}
+
+    </div>
+<div class="show-for-medium">
+    <h1 style=" margin-left:30px; font-family:'Oswald', bold; font-size: 20px; color: #002C3E; opacity: 2.5"><a href="{% url 'gari:allused' profile.id %}">View More <i class="fa fa-chevron-right " style="color:#002C3E" aria-hidden="true"></i></a> </h1>
+</div>
+<div class="show-for-small-only" style="text-align:center">
+<a href="{% url 'gari:allused' profile.id %}" class= " " style="font-family:'Oswald', bold; font-size: 15px; color: darkblue">View More <i class="fa fa-chevron-right " style="color:#002C3E" aria-hidden="true"></i></a>
+</div>
+    </div>
+{% endif %}
+
+{% if new %}
+    <div class="content">
+<div class="wording">
+
+    <h5 style=" margin-left:25px; font-family:'Merriweather', bold; font-size: 16px; color: darkblue; font-weight: bold"><strong>New Cars</strong></h5>
+</div>
+
+<div class="multiple-items">
+    {% for vehicle in new %}
+<div class="card-flex-article card flex-container">
+ <a href="{{vehicle.get_absolute_url}}">
+  <div class="card-image">
+    <img src="{{vehicle.picture.url}}">
+    {% if vehicle.sponsored == True %}
+
+    <span class="label alert card-tag">Top Ad</span>
+    {% endif %}
+  </div>
+  <div class="card-section">
+      <h3 class="article-title" style="color: black">$ {{vehicle.price}}</h3>
+    <p class="article-tit" style="font-family: 'Merriweather', serif ;font-size: 16px; color: dimgray">{{vehicle.name}}</p>
+    <div class="article-details">
+
+
+      <span class="website">{{ vehicle.mileage }}  <i class="fa fa- " style="color:#002C3E" aria-hidden="true"></i></span> &#8226;
+     <span class="author">{{ vehicle.color }}  <i class="fa fa- " style="color:#002C3E" aria-hidden="true"></i> </span> &#8226;
+      <span class="author">{{ vehicle.year }}  </span>
+
+    </div>
+    <p class="article-summary" style="font-family: Merriweather; color: darkgrey">{{ vehicle.county }}</p>
+  </div>
+ </a>
+  </div>
+    {% endfor %}
+
+    </div>
+    <div class="show-for-medium">
+    <h1 style=" margin-left:30px; font-family:'Oswald', bold; font-size: 20px; color: darkred; opacity: 2.5"><a href="{% url 'gari:allnew' profile.id %}">View More <i class="fa fa-chevron-right " style="color:darkred" aria-hidden="true"></i></a> </h1>
+</div>
+<div class="show-for-small-only" style="text-align:center">
+<a href="{% url 'gari:allnew' profile.id %}" class= "" style="font-family:'Oswald', bold; font-size: 15px; color: darkred">View More <i class="fa fa-chevron-right " style="color:darkred" aria-hidden="true"></i> </a>
+</div>
+    </div>
+
+{% endif %}
+
+    {% if imports %}
+    <div class="content">
+<div class="wording">
+
+<h5 style=" margin-left:25px; font-family:'Merriweather', bold; font-size: 16px; color: darkblue; font-weight: bold">Import With This Seller</h5>
+</div>
+
+<div class="multiple-items">
+    {% for vehicle in imports %}
+<div class="card-flex-article card flex-container">
+ <a href="{{vehicle.get_absolute_url}}">
+  <div class="card-image">
+    <img src="{{vehicle.picture.url}}">
+    {% if vehicle.sponsored == True %}
+
+    <span class="label alert card-tag">Top Ad</span>
+    {% endif %}
+  </div>
+  <div class="card-section">
+      <h3 class="article-title" style="color: black">$ {{vehicle.price}}</h3>
+    <p class="article-tit" style="font-family: 'Merriweather', serif ;font-size: 16px; color: dimgray">{{vehicle.name}}</p>
+    <div class="article-details">
+
+
+      <span class="website">{{ vehicle.mileage }}  <i class="fa fa- " style="color:#002C3E" aria-hidden="true"></i></span> &#8226;
+     <span class="author">{{ vehicle.color }}  <i class="fa fa- " style="color:#002C3E" aria-hidden="true"></i> </span> &#8226;
+      <span class="author">{{ vehicle.year }}  </span>
+
+    </div>
+    <p class="article-summary" style="font-family: Merriweather; color: darkgrey">{{ vehicle.county }}</p>
+  </div>
+ </a>
+  </div>
+    {% endfor %}
+
+</div>
+<div class="show-for-medium">
+    <h1 style=" margin-left:30px; font-family:'Oswald', bold; font-size: 20px; color: darkred; opacity: 2.5"><a href="{% url 'gari:allimports' profile.id %}">View More <i class="fa fa-chevron-right " style="color:darkred" aria-hidden="true"></i></a> </h1>
+</div>
+<div class="show-for-small-only" style="text-align:center">
+<a href="{% url 'gari:allimports' profile.id %}" class= "" style="font-family:'Oswald', bold; font-size: 20px; color: darkred">View More <i class="fa fa-chevron-right " style="color:darkred" aria-hidden="true"></i> </a>
+</div>
+    </div>
+
+{% endif %}
+
+{% endblock %}
+
+

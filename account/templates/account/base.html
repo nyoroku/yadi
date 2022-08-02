@@ -1,0 +1,165 @@
+{%load i18n staticfiles %}
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+<title>{% block title %}{% endblock %}</title>
+<link href="{% static "aejeong/css/materialize.css" %}" rel="stylesheet">
+<link href="{% static "aejeong/css/style.css" %}" rel="stylesheet">
+<link href="{% static "aejeong/css/slick.css" %}" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Chela+One|Coda+Caption:800|Fira+Sans|Gaegu|Hind|Knewave|Lato|Libre+Baskerville|Lora|Markazi+Text|Merienda|Merriweather|Montserrat|Noto+Sans|Noto+Serif|Open+Sans|Open+Sans+Condensed:300|Oswald|PT+Sans|PT+Sans+Narrow|Playfair+Display|Poppins|Raleway|Roboto|Roboto+Condensed|Roboto+Slab|Rubik|Slabo+27px|Source+Sans+Pro|Ubuntu" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"/>
+</head>
+<body>
+  <nav class="purple darken-2" role="navigation">
+    <div class="nav-wrapper container">
+     <div class="nav-wrapper container " style="right:5%; "><a id="logo-container" href="#" class="brand-logo white-text">AEJEONG</a>
+{% if request.user.is_authenticated %}
+ <ul class="blue-grey-text right hide-on-med-and-down" style="position: absolute;  z-index: 100;height: 200%; width:100%; left:60%; opacity: 2.0; font-family:'Playfair Display', serif; font-size: 20px; color: antiquewhite">
+
+<li style="font-family:'Playfair Display', serif; font-size: 20px; color: antiquewhite">HI {{ request.user.first_name|capfirst }}</li>
+<li style="font-family:'Playfair Display', serif; font-size: 20px; color: antiquewhite" {% if section == "profile" %}class="selected grey"{% endif %} >
+<a href=" {% url 'profile'%} ">My Profile</a>
+</li>
+<li {% if section == "images" %}class="selected white"{% endif %}>
+<a href="#">Photos</a>
+</li>
+<li {% if section == "members" %}class="selected"{% endif %}>
+<a href="#">Members</a>
+</li>
+
+{% endif %}
+
+{% if request.user.is_authenticated %}
+
+<li><a href="{% url "logout" %}">Logout</a></li>
+{% else %}
+<li><a href="{% url "login" %}">Log-in</a></li>
+    </ul>
+{% endif %}
+
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+    </div>
+  </nav>
+  {% if messages %}
+<ul class="messages green">
+{% for message in messages %}
+<li class="{{ message.tags }}">
+{{ message|safe }}
+<a href="#" class="close">✖</a>
+</li>
+{% endfor %}
+</ul>
+{% endif %}
+<div id="content">
+{% block content %}
+{% endblock %}
+</div>
+
+
+
+
+
+  <footer class="page-footer purple darken-3">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 style="font-family:'Playfair Display', serif; font-size: 20px; color: antiquewhite">Stay Connected</h5>
+          <p style="font-family:'Playfair Display', serif; font-size: 20px; color: antiquewhite">Stay Connected</p>
+
+
+        </div>
+        <div class="row">
+
+         <div class="col s0">
+              <a class="https://www.facebook.com/apexmwea01" style="font-family:'Open Sans', serif; font-size: 20px; color: antiquewhite">Help</a>
+
+         </div>
+           <div class="col s0">
+              <a class="https://www.facebook.com/apexmwea01" style="font-family:'Open Sans', Light; font-size: 20px; color: antiquewhite">About Us</a>
+
+         </div>
+           <div class="col s0">
+              <a class="https://www.facebook.com/apexmwea01" style="font-family:'Lato', Bold; font-size: 20px; color: antiquewhite">Cities</a>
+
+         </div>
+           <div class="col s0">
+              <a class="https://www.facebook.com/apexmwea01" style="font-family:'Open Sans', serif; font-size: 20px; color: antiquewhite">Aeajong Pro</a>
+
+         </div>
+
+      </div>
+
+       <div class="row">
+           <h5 style="font-family:'Playfair Display', serif; font-size: 20px; color: antiquewhite">Stay Connected</h5>
+         <div class="col s0">
+              <a class="https://www.facebook.com/apexmwea01"><i class="fa fa-facebook-square" style="font-size:36px; color: white"></i></a>
+
+         </div>
+           <div class="col s0">
+              <a class="https://www.facebook.com/apexmwea01"><i class="fa fa-twitter-square" style="font-size:36px; color: antiquewhite"></i></a>
+
+         </div>
+           <div class="col s0">
+              <a class="https://www.facebook.com/apexmwea01"><i class="fa fa-youtube-square" style="font-size:36px; color: floralwhite"></i></a>
+
+         </div>
+           <div class="col s0">
+              <a class="https://www.facebook.com/apexmwea01"><i class="fa fa-instagram-square" style="font-size:36px"></i></a>
+
+         </div>
+
+      </div>
+      </div>
+    </div>
+   <div class="footer-copyright">
+       <div class="container"><p style="font-family:'Lato', Bold; font-size: 20px; color: antiquewhite">Copyright @ <a class="" href="#" style="font-family:'Lato', Bold; font-size: 20px; color: antiquewhite">Aejeong 2019</a></p>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script
+  src="http://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+ <script src="{% static 'aejeong/js/materialize.js' %}"></script>
+  <script src="{% static 'aejeong/js/init.js' %}"></script>
+  <script src="{% static 'aejeong/js/masonry.js' %}"></script>
+<script>
+    $(document).ready(function(){
+    $('.fixed-action-btn').floatingActionButton();
+  });
+
+</script>
+<script>
+            $(document).ready(function () {
+                $('.slider').slider({full_width: true,
+                indicators:true, height: 500});
+            });
+        </script>
+ <script>
+    $(document).ready(function(){
+      $('.single-item').slick({
+      });
+    });
+  </script>
+<script>
+ $('.carousel.carousel-slider').carousel({
+    fullWidth: true,
+    indicators: true,
+     height : 400
+
+  });
+  </script>
+
+
+  </body>
+</html>

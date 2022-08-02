@@ -1,0 +1,54 @@
+{% extends "gari/main.html" %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<div class="grid-container">
+<h1 style="text-align: center; font-family: Oswald, bold; color: darkred; font-weight: bold">My Profile</h1>
+    {% for profile in proname %}
+   <table id="vertical">
+
+   <tr>
+         <th style="font-family: Oswald ,bold; color: darkblue">Make Changes</th>
+           <td><h5 class="author-title"><a href="{% url 'gari:edit' %}"> <button type="button" class="button hollow topbar-responsive-button">
+           Edit Profile <i class="fa fa-edit " style="color:#002C3E" aria-hidden="true"></i></button></a></h5></td>
+       </tr>
+
+   <tr>
+
+         <th style="font-family: Oswald ,bold; color: darkblue">Username</th>
+           <td>{{ profile.user.username|capfirst }}</td>
+       </tr>
+
+
+   <tr>
+         <th style="font-family: Oswald ,bold; color: darkblue">Email</th>
+           <td>{{ profile.user.email }}</td>
+       </tr>
+   <tr>
+         <th style="font-family: Oswald ,bold; color: darkblue">Phonenumber</th>
+           <td>{{ profile.number }}</td>
+       </tr>
+    <tr>
+         <th style="font-family: Oswald ,bold; color: darkblue">County</th>
+           <td>{{ profile.county|capfirst }}</td>
+       </tr>
+   <tr>
+   <tr>
+         <th style="font-family: Oswald ,bold; color: darkblue">Company</th>
+           <td>{{ profile.company|capfirst }}</td>
+       </tr>
+   <tr>
+         <th style="font-family: Oswald ,bold; color: darkblue">Description</th>
+           <td>{{ profile.description }}</td>
+
+
+   </table>
+
+
+
+
+    {% endfor %}
+</div>
+
+
+{% endblock %}
+<br>

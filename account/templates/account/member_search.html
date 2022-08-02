@@ -1,0 +1,61 @@
+{% extends 'account/main.html' %}
+{% load staticfiles %}
+{% block title_block %}
+    Search
+    {% endblock %}
+{% block body_block %}
+
+{% block content %}
+
+    <div class="grid-x">
+    <div class="grid-container" xmlns="http://www.w3.org/1999/html">
+    <div class="cell small-6 large-12">
+    <div class="translucent-form-overlay">
+  <form method="get" action="{% url 'match' %}">
+    <h3>Find Matches</h3>
+
+     <div class="row columns">
+      <label for="{{ filter.look_for.label_tag }}">Iam a
+
+     {{ filter.form.look_for }}
+
+      </label>
+    </div>
+    <div class="row columns">
+      <label for="{{ filter.form.gender.label_tag }}">Looking For A
+
+     {{ filter.form.gender }}
+
+      </label>
+    </div>
+    <div class="row columns">
+      <label for="">
+
+
+      </label>
+    </div>
+    <div class="row">
+      <label for="{{ filter.form.age__gte.label_tag }}"  class="columns small-12">Minimum Age
+        {{ filter.form.age__gte }}
+      </label>
+
+      </div>
+      <div class="row">
+      <label for="{{ filter.form.age__lte.label_tag }}"  class="columns small-12">Max Age</label>
+        {{ filter.form.age__lte }}
+
+      </div>
+    <button type="submit" class="primary button expanded search-button">
+      Search
+    </button>
+ </form>
+</div>
+    </div>
+    </div>
+
+<br>
+</div>
+
+{% endblock %}
+
+{% endblock %}

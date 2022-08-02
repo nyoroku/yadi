@@ -1,0 +1,77 @@
+{% extends 'gari/main.html' %}
+{% load staticfiles %}
+{% block title_block %}
+    All Quotes
+    {% endblock %}
+{% block body_block %}
+
+{% block content %}
+<h5 class="center" style=" margin-top: 1.5%; margin-bottom: 0.001%; font-family: 'Oswald',Bold; font-size: 40px; text-align: center; color: darkred">Quotes</h5>
+{% if quote %}
+   <h5>{{total_quotes  }} Quote{{ quote|pluralize }}</h5>
+<table>
+<thead>
+<tr style="font-family: Oswald, bold; color: darkblue">
+    <th width="100">Make</th>
+    <th width="50">Model</th>
+    <th width="50">Status</th>
+    <th width="50">Color</th>
+    <th width="50">Budget</th>
+    <th width="10">Description</th>
+     <th width="10">Action</th>
+
+
+</tr>
+
+</thead>
+<tbody>
+{% for quote in quote %}
+<tr>
+
+<td>{{ quote.make }}</td>
+<td>{{ quote.model }}</td>
+<td>{{ quote.status }}</td>
+<td>{{ quote.color }}</td>
+<td width="10">{{  quote.budget }}</td>
+<td width="10">{{  quote.description }}</td>
+
+
+<td width="20"> <h5 style="font-family: Merriweather, serif; font-weight: bold; font-size: 15px; color: red; text-align: center">
+<a href="{% url 'gari:make_offer' quote.id %}" class="button">Make Offer <i class="fa fa-plus " style="color:#002C3E" aria-hidden="true"></i></a>
+
+</h5></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+{% else %}
+<h5 style="text-align: center">No quotes</h5>
+{% endif %}
+
+
+
+     {% if quote.has_other_pages %}
+    <ul class="pagination-pointed pagination text-center" role="navigation" aria-label="Pagination">
+    {% if quote.has_previous %}
+        <li class="pagination-previous"><a class="pagination-pointed-button" href="?page={{ quote.previous_page_number }}" >Previous <span class="show-for-sr">Page</span></a></li>
+        {% else %}
+  <li class="pagination-previous disabled">Previous <span class="show-for-sr">Page</span></li>
+        {% endif %}
+    {% for i in  page_obj.paginator.page_range %}
+    {% if quote.number == i %}
+  <li class="current"><span class="show-for-sr">You're on page</span> {{ i }}</li>
+        {% else %}
+  <li><a class="pagination-pointed-button" href="?page={{ i }}" aria-label="Page 2">{{ i }}</a></li>
+  {% endif %}
+    {% endfor %}
+    {% if quote.has_next %}
+  <li class="pagination-next"><a class="pagination-pointed-button" href="?page={{ quote.next_page_number }}" aria-label="Next page">Next <span class="show-for-sr">page</span></a></li>
+        {% endif %}
+</ul>
+    {% endif %}
+
+
+{% endblock %}
+
+{% endblock %}

@@ -1,0 +1,96 @@
+{%load i18n staticfiles %}
+<!DOCTYPE html>
+<html class="no-js" lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}{% endblock %}</title>
+<link href="{% static "fondation/css/foundation.css" %}" rel="stylesheet">
+
+<link href="{% static "fondation/css/app.css" %}" rel="stylesheet">
+<link href="{% static "aejeong/css/slick.css" %}" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Chela+One|Coda+Caption:800|Fira+Sans|Gaegu|Hind|Knewave|Lato|Libre+Baskerville|Lora|Markazi+Text|Merienda|Merriweather|Montserrat|Noto+Sans|Noto+Serif|Open+Sans|Open+Sans+Condensed:300|Oswald|PT+Sans|PT+Sans+Narrow|Playfair+Display|Poppins|Raleway|Roboto|Roboto+Condensed|Roboto+Slab|Rubik|Slabo+27px|Source+Sans+Pro|Ubuntu" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"/>
+
+</head>
+
+<nav class="top-bar topbar-responsive">
+  <div class="top-bar-title">
+    <span data-responsive-toggle="topbar-responsive" data-hide-for="medium" class="show-for-small-only">
+      <button class="menu-icon" type="button" data-toggle></button>
+    </span>
+      <a class="topbar-responsive-logo"  href="{% url 'home' %}"><img src="{% static 'aejeong/display/logodate.jpg' %}"> </a>
+  </div>
+  <div id="topbar-responsive" class="topbar-responsive-links">
+    <div class="top-bar-right">
+
+
+
+<ul class="menu simple vertical medium-horizontal">
+
+
+    </ul>
+
+    </div>
+  </div>
+</nav>
+{% for message in messages %}
+    {% if 'success' in message.tags %}
+<div data-closable class="callout alert-callout-border success">
+  <strong><i class="fa fa-check"></i><i class="fa fa-check"></i></strong> - {{ message|safe }}.
+
+  <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+    {% endif %}
+{% endfor %}
+{% for message in messages %}
+    {% if 'error' in message.tags %}
+<div data-closable class="callout alert-callout-border alert radius">
+  <strong>OOPS</strong> - {{ message|safe }}.
+  <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+    {% endif %}
+{% endfor %}
+
+
+
+{% block content %}
+{% endblock %}
+
+
+<div id="engadget-footer-social-container">
+    <footer id="engadget-footer-social">
+        <div class="footer-left">
+
+        </div>
+        <div class="footer-right">
+            <h6>Stay Connected</h6>
+            <i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i>
+            <i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i>
+            <i class="fa fa-google-plus-square fa-2x" aria-hidden="true"></i>
+            <i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>
+        </div>
+    </footer>
+</div>
+
+<script src="{% static 'fondation/js/vendor/jquery.js' %}"></script>
+    <script src="{% static 'fondation/js/vendor/what-input.js' %}"></script>
+    <script src="{% static 'fondation/js/vendor/foundation.js' %}"></script>
+    <script src="{% static 'fondation/js/app.js' %}"></script>
+  <script>
+      $(document).foundation('fullscreen-image-slider', 'reflow');
+  </script>
+  <script>
+     $(document).foundation('grid-x grid-padding-x small-up-2 medium-up-4 large-up-6', 'reflow');
+  </script>
+
+  </body>
+</html>

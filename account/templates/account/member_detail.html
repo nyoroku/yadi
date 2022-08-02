@@ -1,0 +1,118 @@
+{% extends "account/main.html" %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+    <div class="grid-container">
+    <div class="grid-y grid-margin-y">
+      <div class="cell small-6 large-6">
+<div class="fullscreen-image-slider">
+  <div class="orbit" role="region" aria-label="FullScreen Pictures" data-orbit>
+    <ul class="orbit-container">
+      <button class="orbit-previous">
+        <span class="show-for-sr">Previous Slide</span>
+        <span class="nav fa fa-chevron-left fa-3x"></span>
+      </button>
+      <button class="orbit-next">
+        <span class="show-for-sr">Next Slide</span>
+        <span class="nav fa fa-chevron-right fa-3x"></span>
+      </button>
+{% if photos %}
+      {% for photo in photos %}
+      <li class="orbit-slide">
+        <img class="orbit-image" src="{{ photo.picture.url }}" alt="Space">
+        <figcaption class="orbit-caption">
+
+        </figcaption>
+      </li>
+        {% endfor %}
+    {% endif %}
+    </ul>
+  </div>
+</div>
+ <div class="card profile-card-action-icons">
+  <div class="card-section">
+    <div class="profile-card-header">
+      <div class="profile-card-avatar">
+          {% if user.photo %}
+        <img class="avatar-image" src="{{ user.photo.url }}" alt="profile picture">
+          {% endif %}
+      </div>
+      <div class="profile-card-author">
+       <h5 class="author-title"><a href="#"><button type="button" class="button hollow topbar-responsive-button">
+           <i class="fa fa-heart-o" aria-hidden="true"></i></button></a> <a href="#"><button type="button" class="button hollow topbar-responsive-button">
+           <i class="fa fa-envelope-o" aria-hidden="true"></i></button></a></h5>
+        <p class="author-description">Username: {{ user.username|capfirst }}</p>
+          <p class="author-description">Fullname: {{ user.get_full_name|capfirst }}</p>
+
+          <p class="author-description">Age: {{ user.profile.age }}</p>
+          <p class="author-description">Gender: {{ user.profile.gender|capfirst }}</p>
+
+        <p class="author-description">Country: {{ user.profile.country.name }}</p>
+      </div>
+    </div>
+     <div class="profile-card-about">
+        <h5 class="about-title separator-left">Looking For: </h5>
+         <p class="about-content">{{ user.profile.look_for }}</p>
+      <h5 class="about-title separator-left">About Me:</h5>
+      <p class="about-content">
+        {{ user.profile.about_me }}
+      </p>
+        <h5 class="about-title separator-left">What I'm Looking for in a partner:</h5>
+      <p class="about-content">
+        {{ user.profile.looking_for_in_partner }}
+      </p>
+    </div>
+
+    <div class="profile-card-actionn">
+
+
+
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  </div>
+
+
+
+
+</div>
+    </div>
+    </div>
+
+
+
+
+
+
+
+{% endblock %}
+{% block domready %}
+    $('a.like').click(function(e){
+        e.preventDefault();
+        $.post('{% url "user_like" %}',
+            {
+                id: $(this).data('id'),
+                action: $(this).data('action')
+            },
+            function(data){
+                if (data['status'] == 'ok')
+                {
+                    var previous_action = $('a.like').data('action');
+
+                    // toggle data-action
+                    $('a.like').data('action', previous_action == 'like' ? 'unlike' : 'like');
+                    // toggle link text
+                    $('a.like').text(previous_action == 'like' ? 'Unlike' : 'Like');
+
+                    // update total followers
+                    var previous_likers = parseInt($('span.count .total').text());
+                    $('span.count .total').text(previous_action == 'like' ? previous_likers + 1 : previous_likers - 1);
+                }
+        });
+    });
+{% endblock %}
+

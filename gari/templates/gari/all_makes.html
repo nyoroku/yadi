@@ -1,0 +1,38 @@
+ {% extends 'gari/main.html' %}
+{% load staticfiles %}
+{% block title_block %}
+ {% load humanize %}
+    {% load templatehelper %}
+    Brands
+    {% endblock %}
+{% block body_block %}
+
+{% block content %}
+ <section style="background-color: #f8e9a1">
+
+<div class="content">
+<div class="wording">
+    {% load make_tag %}
+    {% get_makes %}
+<h5 style=" margin-left:25px; font-family:'Oswald', bold; font-size: 25px; color: black; font-weight: bold">Top Brands</h5>
+</div>
+<div class="grid-x grid-padding-x">
+    {% for make in makes %}
+  <div class="cell large-2 small-4 medium-4">
+    <div class="featured-image-block column">
+     <a href="{{ make.get_absolute_url }}">
+         {% if make.logo %}
+    <img src="{{make.logo.url}}">
+                   <p class="text-center featured-image-block-title">{{ make.name }}</p>
+  {% endif %}
+
+      </a>
+    </div>
+  </div>
+    {% endfor %}
+</div>
+
+    </div>
+    </section>
+{% endblock %}
+{% endblock %}

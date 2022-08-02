@@ -1,0 +1,40 @@
+{% extends "gari/main.html" %}
+{% block title %}
+{% if q %}
+Edit Vehicle "{{ object.name }}"
+{% else %}
+Add new Vehicle
+{% endif %}
+{% endblock %}
+{% block content %}
+<h1 style="text-align: center">
+{% if object %}
+Edit Vehicle "{{ object.name }}"
+{% else %}
+Add New Vehicle
+{% endif %}
+</h1>
+<div class="module">
+
+<form action="." method="post" id="vehicleForm" data-models-url="{% url 'gari:ajax_load_models' %}" novalidate enctype="multipart/form-data">
+    <div class="grid-container">
+        <h2>Vehicle info</h2>
+      <table style="background-color: grey">
+          {{ form.media }}
+          {{ form.media.js }}
+{{ form.as_table }}
+      </table>
+          <button type="submit" class="primary button expanded search-button">
+      Save Vehicle
+    </button>
+
+
+    </div>
+{% csrf_token %}
+
+</form>
+
+</div>
+
+
+{% endblock %}

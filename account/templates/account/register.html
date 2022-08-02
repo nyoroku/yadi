@@ -1,0 +1,68 @@
+{% extends "account/main.html" %}
+{% block title %}Create an account{% endblock %}
+{% block content %}
+<div class="login-box">
+    <div class="grid-container">
+  <div class="grid-x">
+    <div class="cell small-6 large-6">
+      <div class="login-box-form-section">
+          <form action="." method="post">
+              <h1 class="login-box-title">Sign up</h1>
+              {% if form.non_field_errors %}
+              <p><span class="error">
+              {{ form.non_field_errors|join:", " }}
+              </span></p>
+              {% endif %}
+               <p>{% if user_form.username.errors %}
+              <span class="error">{{ user_form.username.errors|join:", " }}</span>
+              {% endif %}</p>
+              {{ user_form.username.label_tag }}
+              {{ user_form.username }}
+
+              <p>{% if user_form.email.errors %}
+              <span class="error">
+              {{ user_form.email.errors|join:", " }}
+             </span>
+               {% endif %}</p>
+              {{ user_form.email.label_tag }}
+              {{ user_form.email }}
+
+
+             <p>{% if user_form.password.errors %}
+             <span class="error">
+            {{ user_form.passsword.errors|join:", " }}
+            </span>
+            {% endif %}</p>
+          {{ user_form.password.label_tag }}
+              {{ user_form.password }}
+
+          <p>{% if user_form.password1.errors %}
+             <span class="error">
+            {{ user_form.passsword1.errors|join:", " }}
+            </span>
+            {% endif %}</p>
+          {{ user_form.password1.label_tag }}
+              {{ user_form.password1 }}
+              {% csrf_token %}
+
+              <input type="submit" value="Sign me up" class="login-box-submit-button">
+          </form>
+      </div>
+
+      <div class="or">OR</div>
+    </div>
+    <div class="cell small-6 large-6 login-box-social-section">
+      <div class="login-box-social-section-inner">
+        <span class="login-box-social-headline">Sign up with<br />your social account</span>
+        <a href="{% url "social:begin" "facebook"%}" class="login-box-social-button-facebook">Sign up with facebook</a>
+        <a href="{% url "social:begin" "twitter"%}" class="login-box-social-button-twitter">Sign up with twitter</a>
+        <a class="login-box-social-button-google">Sign up with Google+</a>
+      </div>
+    </div>
+  </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

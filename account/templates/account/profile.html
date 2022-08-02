@@ -1,0 +1,47 @@
+{% extends "account/main.html" %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+
+    {% for profile in proname %}
+<div class="card profile-card-action-icons">
+  <div class="card-section">
+    <div class="profile-card-header">
+      <div class="profile-card-avatar">
+          {% if profile.photo %}
+        <img class="avatar-image" src="{{ profile.photo.url }}" alt="profile picture">
+          {% endif %}
+      </div>
+      <div class="profile-card-author">
+       <h5 class="author-title"><a href="{% url 'edit' %}"><button type="button" class="button hollow topbar-responsive-button">
+           Edit Profile</button></a></h5>
+        <p class="author-description">Username: {{ profile.user.username|capfirst }}</p>
+          <p class="author-description">Firstname: {{ profile.user.first_name|capfirst }}</p>
+          <p class="author-description">Lastname: {{ profile.user.last_name|capfirst }}</p>
+          <p class="author-description">Email: {{ profile.user.email|capfirst }}</p>
+          <p class="author-description">Gender: {{ profile.gender|capfirst }}</p>
+          <p class="author-description">Date of Birth: {{ profile.date_of_birth }}</p>
+        <p class="author-description">Country: {{ profile.country.name }}</p>
+      </div>
+    </div>
+    <div class="profile-card-about">
+        <h5 class="about-title separator-left">Looking For: {{ profile.look_for }}</h5>
+      <h5 class="about-title separator-left">About Me:</h5>
+      <p class="about-content">
+        {{ profile.about_me }}
+      </p>
+        <h5 class="about-title separator-left">What I'm Looking for in a patner:</h5>
+      <p class="about-content">
+        {{ profile.looking_for_in_partner }}
+      </p>
+    </div>
+  </div>
+</div>
+
+
+
+
+    {% endfor %}
+
+
+
+{% endblock %}

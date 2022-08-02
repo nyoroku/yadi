@@ -1,0 +1,173 @@
+{% extends 'gari/main.html' %}
+{% load staticfiles %}
+{% block title_block %}
+    Vehicles
+    {% endblock %}
+{% block body_block %}
+{% load humanize %}
+ {% load templatehelper %}
+{% block content %}
+    {% if sponsored %}
+<div class="content">
+<div class="wording">
+
+<h5 style=" margin-left:25px; font-family:'Oswald', bold; font-size: 25px; color: black; font-weight: bold">Sponsored ADs</h5>
+</div>
+
+<div class="multiple-items">
+    {% for deal in sponsored %}
+ <div class="card-flex-article card flex-container">
+ <a href="{{ deal.get_absolute_url }}">
+  <div class="card-image">
+  {% if deal.picture %}
+    <img src="{{deal.picture.url}}">
+  {% endif %}
+    {% if deal.sponsored == True %}
+
+    <span class="label alert card-tag">Top Ad</span>
+    {% endif %}
+  </div>
+  <div class="card-section">
+      <h3 class="article-title" style="color: black"> {{deal.name}}</h3>
+
+    <div class="article-details">
+
+
+
+    </div>
+      <p class="article-summary" style="font-family: Merriweather; color: darkblue"><strong>Ksh {{ deal.price|intcomma }}</strong></p>
+  </div>
+ </a>
+  </div>
+
+    {% endfor %}
+ </div>
+
+    </div>
+{% endif %}
+
+<h5 class="center" style=" margin-top: 1.5%; margin-bottom: 0.001%; font-family: 'Oswald',Bold; font-size: 40px"></h5>
+{% if filter %}
+
+{% if tag %}
+<h2>Vehicle tagged with "{{ tag.name }}"</h2>
+{% endif %}
+
+ <div class="contain">
+<h1 style="font-family: Merriweather, serif; font-weight: bold; font-size: 20px; color: black">{{ total_vehicles }} vehicle{{ total_vehicles|pluralize }} found</h1>
+ <section>
+    <ul class="dropdown menu" data-dropdown-menu id="primary-menu" style="margin-left: 5px">
+  <li>
+      <a href="#"> <button class="hollow button primary extended"> Sort By</button></a>
+
+    <ul class="menu">
+      <li><a href="?order=price">Price(Lowest to Highest)</a></li>
+      <li><a href="?order=-price">Price(Highest to Lowest)</a></li>
+      <li><a href="?order=mileage">Mileage(Lowest to Highest)</a></li>
+      <li><a href="?order=-mileage">Mileage(Highest to Lowest)</a></li>
+    </ul>
+
+  </li>
+
+</ul>
+</section>
+<div class="grid-x grid-margin-x">
+       {% for vehicle in vehicle %}
+        <div class="cell large-2 small-12 medium-12">
+        <div class="news-card-tag">
+
+  <p class="tags">
+      Tags:
+      {% for tag in vehicle.tags.all|slice:"3" %}
+          <span class="label"><a href="{% url 'gari:allvehicle_by_tag' tag.slug%}">{{ tag.name }}</a>
+          </span>
+
+{% if not forloop.last %}, {% endif %}
+{% endfor %}
+</p>
+</div>
+
+<div class="card-flex-article card">
+  <div class="card-image">
+
+      {% if vehicle.picture %}
+          <a href="{{ vehicle.get_absolute_url }}"><img src="{{ vehicle.picture.url }}"></a>
+      {% endif %}
+  <br>
+  {% if vehicle.sponsored == True %}
+    <span class="label alert card-tag">Top Ad</span>
+  {% endif %}
+
+  </div>
+  <div class="card-section">
+
+      <h1 class="article-title">Ksh {{ vehicle.price|intcomma }}</h1>
+    <span class="article-summary"> {{ vehicle.name }}</span>
+    <div class="article-details">
+      <span class="website"><i class="fa fa- " style="color:#002C3E" aria-hidden="true"></i>{{ vehicle.mileage|intcomma }}  Km</span> &#8226;
+     <span class="author"><i class="fa fa- " style="color:#002C3E" aria-hidden="true"></i>{{ vehicle.engine_size }} L </span> &#8226;
+      <span class="author"><i class="fa fa-calendar " style="color:#002C3E" aria-hidden="true"></i>{{ vehicle.year }} </span>
+    </div>
+    <h5 class="article-summary"><i class="fa fa-map-marker " style="color:#002C3E" aria-hidden="true"></i>{{ vehicle.county }}</h5>
+
+  </div>
+
+</div>
+
+
+    </div>
+{% endfor %}
+</div>
+</div>
+{% else %}
+<p>No Vehicle Yet</p>
+{% endif %}
+
+    {% if vehicle.has_other_pages %}
+    <ul class="pagination-pointed pagination text-center" role="navigation" aria-label="Pagination">
+    {% if vehicle.has_previous %}
+        <li class="pagination-previous"><a class="pagination-pointed-button" href="{% query_transform request page=vehicle.previous_page_number %}" >Previous <span class="show-for-sr">Page</span></a></li>
+        {% else %}
+  <li class="pagination-previous disabled">Previous <span class="show-for-sr">Page</span></li>
+        {% endif %}
+    {% for i in  vehicle.paginator.page_range %}
+    {% if vehicle.number == i %}
+  <li class="current"><span class="show-for-sr">You're on page</span> {{ i }}</li>
+        {% else %}
+  <li><a class="pagination-pointed-button" href="?{% query_transform request page=i %}">{{ i }}</a></li>
+  {% endif %}
+    {% endfor %}
+    {% if vehicle.has_next %}
+  <li class="pagination-next"><a class="pagination-pointed-button" href="?{% query_transform request page=vehicle.next_page_number %}" aria-label="Next page">Next <span class="show-for-sr">page</span></a></li>
+        {% endif %}
+</ul>
+    {% endif %}
+    {% if tag.name in tag %}
+        {% if vehicle.has_other_pages %}
+    <ul class="pagination-pointed pagination text-center" role="navigation" aria-label="Pagination">
+    {% if vehicle.has_previous %}
+        <li class="pagination-previous"><a class="pagination-pointed-button" href="?page={{ vehicle.previous_page_number }}" >Previous <span class="show-for-sr">Page</span></a></li>
+        {% else %}
+  <li class="pagination-previous disabled">Previous <span class="show-for-sr">Page</span></li>
+        {% endif %}
+    {% for i in  vehicle.paginator.page_range %}
+    {% if vehicle.number == i %}
+  <li class="current"><span class="show-for-sr">You're on page</span> {{ i }}</li>
+        {% else %}
+  <li><a class="pagination-pointed-button" href="?page={{ i }}" aria-label="Page 2">{{ i }}</a></li>
+  {% endif %}
+    {% endfor %}
+    {% if vehicle.has_next %}
+  <li class="pagination-next"><a class="pagination-pointed-button" href="?page={{ vehicle.next_page_number }}" aria-label="Next page">Next <span class="show-for-sr">page</span></a></li>
+        {% endif %}
+</ul>
+    {% endif %}
+    {% endif %}
+
+
+
+
+
+{% endblock %}
+
+{% endblock %}

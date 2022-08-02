@@ -1,0 +1,323 @@
+{%load i18n staticfiles %}
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gariday- Cars for everyone</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.0/css/foundation-flex.css">
+      <link href="{% static "css/foundation.css" %}" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link href="{% static "css/app.css" %}" rel="stylesheet">
+    <link href="{% static "fonts/slick.svg" %}" rel="stylesheet">
+	<link href="{% static "fonts/slick.eot" %}" rel="stylesheet">
+	<link href="{% static "fonts/slick.ttf" %}" rel="stylesheet">
+	<link href="{% static "fonts/slick.woff" %}" rel="stylesheet">
+	<link href="{% static "css/slick-theme.css" %}" rel="stylesheet">
+	<link href="{% static "css/pgwslider.css" %}" rel="stylesheet">
+      <link href="{% static "css/pgwslideshow.css" %}" rel="stylesheet">
+      <link href="{% static "css/pgwslideshow_light.css" %}" rel="stylesheet">
+      <link href="{% static "css/jquery.readall.css" %}" rel="stylesheet">
+
+
+
+  <link href="https://fonts.googleapis.com/css?family=Chela+One|Coda+Caption:800|Fira+Sans|Gaegu|Hind|Knewave|Lato|Libre+Baskerville|Lora|Markazi+Text|Merienda|Merriweather|Montserrat|Noto+Sans|Noto+Serif|Open+Sans|Open+Sans+Condensed:300|Oswald|PT+Sans|PT+Sans+Narrow|Playfair+Display|Poppins|Raleway|Roboto|Roboto+Condensed|Roboto+Slab|Rubik|Slabo+27px|Source+Sans+Pro|Ubuntu" rel="stylesheet">
+  </head>
+  <body>
+  <div data-sticky-container>
+  <nav class="fixed top-bar topbar-responsive">
+  <div class="top-bar-title">
+    <span data-responsive-toggle="topbar-responsive" data-hide-for="medium">
+      <button class="menu-icon" type="button" data-toggle></button>
+    </span>
+    <a class="topbar-responsive-logo" style="font-family:'Oswald', Bold; font-size: 30px; color: red" href="{% url 'index' %}"><strong>Garipad</strong></a>
+  </div>
+  <div id="topbar-responsive" class="topbar-responsive-links">
+    <div class="top-bar-right">
+      <ul class="menu simple vertical medium-horizontal">
+
+       <li style="font-family:'Oswald', bold; font-size: 20px; color: white"> <a href=""> Find A Dealer</a></li>
+          <li style="font-family:'Oswald', bold; font-size: 20px; color: white"> <a href=""> Find By Brand</a></li>
+      <li style="font-family:'Oswald', bold; font-size: 20px; color: white"> <a href=""> Find By Body Type</a></li>
+ {% if request.user.is_authenticated and user.is_profile %}
+
+          <li style="font-family:'Oswald', bold; font-size: 20px; color: white"> <a href="{% url 'gari:profile' %}"> My Profile</a></li>
+          <li style="font-family:'Oswald', bold; font-size: 20px; color: white"> <a href="{% url 'gari:my_list' %}"> My Listing</a></li>
+     <li style="font-family:'Playfair Display', serif; font-size: 20px; color: black">
+          <a href="{% url 'logout' %}"><button type="button" class="button hollow topbar-responsive-button">
+              Logout </button></a>
+</li>
+      {% endif %}
+      {% if request.user.is_authenticated and user.is_private %}
+
+          <li style="font-family:'Oswald', bold; font-size: 20px; color: white"> <a href="{% url 'gari:my_profile' %}"> My Profile</a></li>
+          <li style="font-family:'Oswald', bold; font-size: 20px; color: white"> <a href="{% url 'gari:my_list' %}"> My Listing</a></li>
+          <li style="font-family:'Playfair Display', serif; font-size: 20px; color: black">
+          <a href="{% url 'user_logout' %}"><button type="button" class="button hollow topbar-responsive-button">
+              Logout </button></a>
+</li>
+      {% endif %}
+
+      </ul>
+    </div>
+  </div>
+</nav>
+      {% for message in messages %}
+    {% if 'success' in message.tags %}
+<div data-closable class="callout alert-callout-border success">
+  <strong><i class="fa fa-check"></i><i class="fa fa-check"></i></strong> - {{ message|safe }}.
+
+  <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+    {% endif %}
+{% endfor %}
+{% for message in messages %}
+    {% if 'error' in message.tags %}
+<div data-closable class="callout alert-callout-border alert radius">
+  <strong>OOPS</strong> - {{ message|safe }}.
+  <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+    {% endif %}
+{% endfor %}
+</div>
+
+
+  {% block content %}
+  {% endblock %}
+
+ <div id="engadget-footer-social-container">
+    <footer id="engadget-footer-social">
+        <div class="footer-left">
+		<h1 style="font-family:'Oswald', Bold; font-size: 25px; color: darkblue"> Popular Vehicles By Body Type</h1>
+         <p style="font-family:'Oswald', bold; font-size: 20px; color: white"><a href="">Toyota</a></p>
+            <p style="font-family:'Oswald', bold; font-size: 20px; color: white"><a href="">Famagusta</a></p>
+            <p style="font-family:'Oswald', bold; font-size: 20px; color: white"><a href="">Limassol</a></p>
+            <p style="font-family:'Oswald', bold; font-size: 20px; color: white"><a href="">Larnaca</a></p>
+            <p style="font-family:'Oswald', bold; font-size: 20px; color: white"><a href="">Paphos</a></p>
+            <p style="font-family:'Oswald', bold; font-size: 20px; color: white"><a href="">Kyrenia</a></p>
+
+
+        </div>
+        <div class="footer-left">
+		<h1 style="font-family:'Oswald', Bold; font-size: 25px; color: darkblue"> Popular Vehicles By Brand</h1>
+            <p style="font-family:'Oswald', bold; font-size: 20px; color: white"><a href="">Nicosia</a></p>
+            <p style="font-family:'Oswald', bold; font-size: 20px; color: white"><a href="">Famagusta</a></p>
+            <p style="font-family:'Oswald', bold; font-size: 20px; color: white"><a href="">Limassol</a></p>
+            <p style="font-family:'Oswald', bold; font-size: 20px; color: white"><a href="">Larnaca</a></p>
+            <p style="font-family:'Oswald', bold; font-size: 20px; color: white"><a href="">Paphos</a></p>
+            <p style="font-family:'Oswald', bold; font-size: 20px; color: white"><a href="">Kyrenia</a></p>
+
+
+        </div>
+        <div class="footer-left">
+		<h1 style="font-family:'Oswald', Bold; font-size: 25px; color: darkblue"> Popular Vehicles By Model </h1>
+         <p style="font-family:'Oswald', bold; font-size: 20px; color: white"><a href="">Nicosia</a></p>
+            <p style="font-family:'Oswald', bold; font-size: 20px; color: white"><a href="">Famagusta</a></p>
+            <p style="font-family:'Oswald', bold; font-size: 20px; color: white"><a href="">Limassol</a></p>
+            <p style="font-family:'Oswald', bold; font-size: 20px; color: white"><a href="">Larnaca</a></p>
+            <p style="font-family:'Oswald', bold; font-size: 20px; color: white"><a href="">Paphos</a></p>
+            <p style="font-family:'Oswald', bold; font-size: 20px; color: white"><a href="">Kyrenia</a></p>
+
+
+
+        </div>
+        {% if  not request.user.is_authenticated  %}
+        <div class="footer-left">
+		<h1 style="font-family:'Oswald', Bold; font-size: 25px; color: darkblue">Seller Zone</h1>
+         <p style="font-family:'Oswald', bold; font-size: 20px; color: white"><a href="">Guidelines</a></p>
+            <p style="font-family:'Oswald', bold; font-size: 20px; color: white"><a href="">Dealer Login</a></p>
+            <p style="font-family:'Oswald', bold; font-size: 20px; color: white"><a href="">Dealer Signup</a></p>
+         <p style="font-family:'Oswald', bold; font-size: 20px; color: white"><a href="">Private Seller Login</a></p>
+            <p style="font-family:'Oswald', bold; font-size: 20px; color: white"><a href="">Private Seller Signup</a></p>
+
+
+
+
+
+        </div>
+        {% endif %}
+        <div class="footer-right">
+            <h6 style="font-family:'Oswald', bold; font-size: 20px; color: white">Stay Connected</h6>
+            <i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i>
+            <i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i>
+            <i class="fa fa-google-plus-square fa-2x" aria-hidden="true"></i>
+            <i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>
+        </div>
+    </footer>
+</div>
+
+
+
+
+
+
+
+
+
+
+    <script src="{% static 'js/vendor/jquery.js' %}"></script>
+    <script src="{% static 'js/vendor/what-input.js' %}"></script>
+    <script src="{% static 'js/vendor/foundation.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+  <script src="{% static 'js/pgwslider.js' %}"></script>
+    <script src="{% static 'js/pgwslideshow.js' %}"></script>
+ <script src="{% static 'js/jquery.readall.js' %}"></script>
+<script src="{% static 'smart-selects/admin/js/chainedfk.js' %}"></script>
+  <script src="{% static 'smart-selects/admin/js/bindfields.js' %}"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.multiple-items').slick({
+  infinite: false,
+  arrows:true,
+  slidesToShow: 6,
+  slidesToScroll: 1,
+  dots:false,
+       responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 1.2,
+        slidesToScroll: 1,
+        infinite: false,
+        dots: true
+
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        infinite: false,
+         arrows : false
+
+      }
+    }
+    // You can unslick at a given breakpoint now by adding:
+    // settings: "unslick"
+    // instead of a settings object
+  ]
+
+});
+    });
+  </script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+      $('.deals').slick({
+  infinite: false,
+  arrows:true,
+  slidesToShow: 5,
+  slidesToScroll: 1,
+  dots:false,
+       responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: false,
+        dots: true,
+        arrows : false
+
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2.5,
+        slidesToScroll: 2
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1.2,
+        slidesToScroll: 1,
+         infinite: false,
+          arrows: false
+
+      }
+    }
+    // You can unslick at a given breakpoint now by adding:
+    // settings: "unslick"
+    // instead of a settings object
+  ]
+
+});
+    });
+  </script>
+  <script type="text/javascript">
+      $(document).ready(function(){
+       $('.slider-for').slick({
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  arrows: false,
+  fade: true,
+  asNavFor: '.slider-nav'
+});
+$('.slider-nav').slick({
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  asNavFor: '.slider-for',
+  dots: true,
+  centerMode: true,
+  focusOnSelect: true
+}); });
+  </script>
+  <script>
+      $(document).ready(function() {
+   var pgwSlider = $('.pgwSlider').pgwSlider({
+   getSlideCount: 4,
+   displayControls: true,
+    touchControls: true,
+   listPosition: 'right',
+   autoSlide: false,
+   selectionMode: 'sliding',
+   verticalCentering: true
+
+
+
+    });
+});
+  </script>
+  <script>
+      $(document).ready(function() {
+   var pgwSlideshow = $('.pgwSlideshow').pgwSlideshow({
+   getSlideCount: 4,
+   displayControls: true
+
+
+
+
+    });
+});
+  </script>
+  <script>
+      $(document).ready(function() {
+    $('.fotorama').fotorama();
+});
+  </script>
+<script>
+    $('p').readall({
+
+  showheight:null,
+
+  showrows: 3
+
+});
+</script>
+  </body>
+</html>

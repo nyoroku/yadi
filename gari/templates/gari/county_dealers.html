@@ -1,0 +1,109 @@
+{% extends 'gari/main.html' %}
+{% load staticfiles %}
+{% block title_block %}
+ {% load humanize %}
+    {% load templatehelper %}
+
+    {% endblock %}
+{% block body_block %}
+
+{% block content %}
+
+
+{% if filter.qs %}
+
+<div class="contain">
+
+
+<h1 style="font-family: Merriweather, serif; font-weight: bold; font-size: 20px; color: black">{{ total_dealers }} dealer{{ dealer|pluralize }} found </h1>
+
+
+
+
+<div class="grid-x grid-margin-x">
+       {% for agent in dealer %}
+        <div class="cell large-2 small-12 medium-12">
+        <div class="news-card-tag">
+
+
+</div>
+
+<div class="card-flex-article card">
+  <div class="card-image">
+
+      {% if agent.logo %}
+          <a href="{{ agent.get_absolute_url }}"><img src="{{ agent.logo.url }}"></a>
+      {% endif %}
+  {% if vehicle.sponsored == True %}
+    <span class="label alert card-tag">Top Ad</span>
+  {% endif %}
+  </div>
+  <div class="card-section">
+      <h3 class="article-title"></h3>
+    <h3 class="article-title">{{ agent.company|capfirst }}</h3>
+    <div class="article-details">
+
+    </div>
+    <p class="article-summary">{{ agent.county|capfirst }}</p>
+
+  </div>
+
+</div>
+
+
+    </div>
+{% endfor %}
+</div>
+</div>
+{% else %}
+<p>No Dealer Yet</p>
+{% endif %}
+
+    {% if dealer.has_other_pages %}
+    <ul class="pagination-pointed pagination text-center" role="navigation" aria-label="Pagination">
+    {% if dealer.has_previous %}
+     <li class="pagination-previous"><a class="pagination-pointed-button" href="?{% query_transform request page=dealer.previous_page_number %}" >Previous <span class="show-for-sr">Page</span></a></li>
+        {% else %}
+  <li class="pagination-previous disabled">Previous <span class="show-for-sr">Page</span></li>
+        {% endif %}
+    {% for i in  dealer.paginator.page_range %}
+    {% if dealer.number == i %}
+  <li class="current"><span class="show-for-sr">You're on page</span> {{ i }}</li>
+        {% else %}
+  <li><a class="pagination-pointed-button" href="?{% query_transform request page=i %}">{{ i }}</a></li>
+  {% endif %}
+    {% endfor %}
+    {% if dealer.has_next %}
+   <li class="pagination-next"><a class="pagination-pointed-button" href="?{% query_transform request page=dealer.next_page_number %}" aria-label="Next page">Next <span class="show-for-sr">page</span></a></li>
+        {% endif %}
+</ul>
+    {% endif %}
+    {% if tag.name in tag %}
+        {% if vehicle.has_other_pages %}
+    <ul class="pagination-pointed pagination text-center" role="navigation" aria-label="Pagination">
+    {% if vehicle.has_previous %}
+        <li class="pagination-previous"><a class="pagination-pointed-button" href="?page={{ vehicle.previous_page_number }}" >Previous <span class="show-for-sr">Page</span></a></li>
+        {% else %}
+  <li class="pagination-previous disabled">Previous <span class="show-for-sr">Page</span></li>
+        {% endif %}
+    {% for i in  vehicle.paginator.page_range %}
+    {% if vehicle.number == i %}
+  <li class="current"><span class="show-for-sr">You're on page</span> {{ i }}</li>
+        {% else %}
+  <li><a class="pagination-pointed-button" href="?page={{ i }}" aria-label="Page 2">{{ i }}</a></li>
+  {% endif %}
+    {% endfor %}
+    {% if vehicle.has_next %}
+  <li class="pagination-next"><a class="pagination-pointed-button" href="?page={{ vehicle.next_page_number }}" aria-label="Next page">Next <span class="show-for-sr">page</span></a></li>
+        {% endif %}
+</ul>
+    {% endif %}
+    {% endif %}
+
+
+
+
+
+{% endblock %}
+
+{% endblock %}

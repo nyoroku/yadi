@@ -1,0 +1,40 @@
+{% extends "gari/main.html" %}
+{% block title %}
+{% if quote %}
+Edit  "{{ object.name }}"
+{% else %}
+Add new Quote
+{% endif %}
+{% endblock %}
+{% block content %}
+<h1 style="text-align: center">
+{% if object %}
+{{ object.name }}
+{% else %}
+Create New Quote
+{% endif %}
+</h1>
+<div class="module">
+
+<form  method="post"   enctype="multipart/form-data">
+    <div class="grid-container">
+        <h2>Quote info</h2>
+      <table style="background-color: grey">
+          {{ form.media }}
+          {{ form.media.js }}
+{{ form.as_table }}
+      </table>
+          <button type="submit" class="primary button expanded search-button">
+      Request Quotes
+    </button>
+
+
+    </div>
+{% csrf_token %}
+
+</form>
+
+</div>
+
+
+{% endblock %}

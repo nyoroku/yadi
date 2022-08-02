@@ -1,0 +1,296 @@
+{% extends 'gari/main.html' %}
+{% load staticfiles %}
+{% load static %}
+{% load humanize %}
+{% block title_block %}
+    Search
+    {% endblock %}
+{% block body_block %}
+
+{% block content %}
+
+
+<div class="hero-section">
+<div class="hero-section-text">
+
+  <div class="formu">
+<div class="translucent-form-overlay">
+
+   <form method="get" action="{% url 'gari:gari_results' %}">
+
+
+<h1 style="font-family:'Merriweather', bold; font-size: 35px; color: #F7444E">Find Your Dream Car</h1>
+
+      <div class="grid-x ">
+          {{ filter.form.media }}
+          {{ filter.form.media.js }}
+
+      <div class="cell large-12 small-12">
+          {{ filter.form.county.label_tag }}
+        {{ filter.form.county }}
+      </div>
+    </div>
+        <div class="grid-x grid-margin-x">
+      <div class="cell large-6 small-6 medium-6">
+        {{ filter.form.make.label_tag }}
+          {{ filter.form.make }}
+      </div>
+      <div class="cell large-6 small-6 medium-6">
+        {{ form.model.label_tag }}
+          {{ form.model }}
+      </div>
+    </div>
+        <div class="grid-x grid-margin-x">
+      <div class="cell large-6 small-6 medium-6">
+        {{ filter.form.year__gte.label_tag }}
+          {{ filter.form.year__gte }}
+      </div>
+      <div class="cell large-6 small-6 medium-6">
+        {{ filter.form.year__lte.label_tag }}
+          {{ filter.form.year__lte }}
+      </div>
+    </div>
+
+
+    <div class="grid-x grid-margin-x">
+      <div class="cell large-6 small-6 medium-6">
+        {{ filter.form.price__gte.label_tag }}
+          {{ filter.form.price__gte }}
+      </div>
+      <div class="cell large-6 small-6 medium-6">
+        {{ filter.form.price__lte.label_tag }}
+          {{ filter.form.price__lte }}
+      </div>
+    </div>
+    <button type="submit" class="alert button expanded search-button">
+      Find Cars
+    </button>
+ </form>
+</div>
+  </div>
+  </div>
+  </div>
+
+<section class="marketing-site-three-up" style="background-color: #a8d0e6;">
+
+    <div class="content">
+
+        <h1 class="marketing-site-three-up-headline" style="margin-left: 25px; font-family: Merriweather ; color: darkred"><strong>Let Garipad get you the best car deal</strong></h1>
+
+  <div class="grid-x">
+    <div class="cell large-4">
+      <i class="fa fa-check-square-o" aria-hidden="true"></i>
+        <h4 class="marketing-site-three-up-title" style="font-family: Merriweather"><strong>Request quotes from certified dealers</strong></h4>
+      <p class="marketing-site-three-up-desc" style="font-family: Oswald, Bold">Request quotes for the car you want, based on Brand , model , color and your budget  </p>
+    </div>
+    <div class="cell large-4">
+      <i class="fa fa-check-square-o" aria-hidden="true"></i>
+        <h4 class="marketing-site-three-up-title" style="font-family: Merriweather"><strong>Compare Offers</strong></h4>
+      <p class="marketing-site-three-up-desc" style="font-family: Oswald, Bold">Compare the offers based on price and location of the dealer</p>
+    </div>
+    <div class="cell large-4">
+      <i class="fa fa-check-square-o" aria-hidden="true"></i>
+        <h4 class="marketing-site-three-up-title" style="font-family: Merriweather"><strong>Grab your deal</strong></h4>
+      <p class="marketing-site-three-up-desc" style="font-family: Oswald, Bold">Contact your preferred dealer and get your perfect car</p>
+    </div>
+
+  </div>
+    </div>
+    <p style="text-align: center; font-family: Merriweather, Bold"><a href="{% url 'gari:create_quote' %}" class="button large  alert">Request Quotes</a></p>
+</section>
+
+
+<div class="content">
+<div class="wording">
+    {% load dealers_tag %}
+    {% get_dealers %}
+<h5 style=" margin-left:25px; font-family:'Oswald', bold; font-size: 25px; color: black; font-weight: bold">Top Dealers</h5>
+</div>
+
+<div class="multiple-items">
+    {% for dealer in dealers %}
+ <div class="card-flex-article card flex-container">
+ <a href="{{ dealer.get_absolute_url }}">
+  <div class="card-image">
+  {% if dealer.logo %}
+    <img src="{{dealer.logo.url}}">
+  {% endif %}
+    {% if dealer.sponsored == True %}
+
+    <span class="label alert card-tag">Top Ad</span>
+    {% endif %}
+  </div>
+  <div class="card-section">
+      <h3 class="article-title" style="color: black; font-size: 16px"> {{dealer.company}}</h3>
+
+    <div class="article-details">
+
+
+
+    </div>
+      <p class="article-summary" style="font-family: Merriweather; color: darkblue"><strong><i class="fa fa-location-arrow" aria-hidden="true"></i> {{ dealer.county|capfirst }}</strong></p>
+  </div>
+ </a>
+  </div>
+
+    {% endfor %}
+ </div>
+<div class="show-for-medium">
+    <h1 style=" margin-left:30px; font-family:'Oswald', bold; font-size: 20px; color: darkred; opacity: 2.5"><a href="{% url 'gari:alldealers' %}" style="color: darkred">View All Dealers <i class="fa fa-arrow-right " style="color:darkred" aria-hidden="true"></i></a> </h1>
+</div>
+<div class="show-for-small-only" style="text-align:center">
+<a href="{% url 'gari:alldealers' %}" class= "" style="font-family:'Oswald', bold; font-size: 20px; color: darkred">View All Dealers <i class="fa fa-arrow-right " style="color:darkred" aria-hidden="true"></i> </a>
+</div>
+    </div>
+
+
+
+<div class="content">
+<div class="wording">
+    {% load top_deals %}
+    {% get_deals %}
+<h5 style=" margin-left:25px; font-family:'Oswald', bold; font-size: 25px; color: black; font-weight: bold">Top Deals</h5>
+</div>
+
+<div class="multiple-items">
+    {% for deal in deals %}
+ <div class="card-flex-article card flex-container">
+ <a href="{{ deal.get_absolute_url }}">
+  <div class="card-image">
+  {% if deal.picture %}
+    <img src="{{deal.picture.url}}">
+  {% endif %}
+    {% if deal.deal == True %}
+
+    <span class="label alert card-tag">Hot Deal</span>
+
+    {% endif %}
+
+  </div>
+  <div class="card-section">
+      <h5 class="article-title" style="color: black; font-size: 16px"> {{deal.name}}</h5>
+
+    <div class="article-details">
+
+
+
+    </div>
+      <p class="article-summary" style="font-family: Merriweather; color: darkblue"><strong>Ksh {{ deal.price|intcomma }}</strong></p>
+  </div>
+ </a>
+    <h5 style=" margin-left:25px; font-family:'Oswald', bold; font-size: 20px; color: darkred; font-weight: bold">{{ deal.deal_deadline|timeuntil }} To Go!</h5>
+  </div>
+
+    {% endfor %}
+
+ </div>
+<div class="show-for-medium">
+    <h1 style=" margin-left:30px; font-family:'Oswald', bold; font-size: 20px; color: darkred; opacity: 2.5"><a href="{% url 'gari:alldeals' %}" style="color: darkred">View All Deals <i class="fa fa-arrow-right " style="color:darkred" aria-hidden="true"></i></a> </h1>
+</div>
+<div class="show-for-small-only" style="text-align:center">
+<a href="{% url 'gari:alldeals' %}" class= "" style="font-family:'Oswald', bold; font-size: 20px; color: darkred">View All Deals <i class="fa fa-arrow-right " style="color:darkred" aria-hidden="true"></i> </a>
+</div>
+    </div>
+
+   <div class="content">
+          {% load news_tag %}
+          {% get_news %}
+<div class="article-row-section">
+  <div class="article-row-section-inner">
+
+    <h2 class="article-row-section-header">Latest Car News</h2>
+      {% for new in news %}
+    <a href="{{ new.get_absolute_url }}">
+      <article class="article-row">
+        <div class="article-row-img">
+            {% if new.picture %}
+          <img src="{{ new.picture.url }}" alt="news" />
+            {% endif %}
+        </div>
+        <div class="article-row-content">
+          <h5 class="article-row-content-header" style="font-family: Roboto, Bold; font-size: 25px; color: blue">{{ new.title }}</h5>
+
+          <p class="article-row-content-description">{{ new.text|truncatewords:10 }}</p>
+
+
+
+        </div>
+      </article>
+    </a>
+      {% endfor %}
+
+  </div>
+
+</div>
+<div style="text-align:center">
+<a href="{% url 'gari:allnews' %}" class= "hollow button large">View All News</a>
+</div>
+        </div>
+      <section style="background-color: whitesmoke">
+
+<div class="content">
+<div class="wording">
+    {% load type_tag %}
+    {% get_types %}
+<h5 style=" margin-left:25px; font-family:'Oswald', bold; font-size: 25px; color: black; font-weight: bold">Body Types</h5>
+</div>
+<div class="grid-x grid-padding-x">
+    {% for type in types %}
+  <div class="cell large-2 small-6 medium-4">
+    <div class="featured-image-block column p">
+     <a href="{{ type.get_absolute_url }}">
+         {% if type.picture %}
+    <img src="{{type.picture.url}}">
+                   <p class="text-center featured-image-block-title">{{ type.name }}</p>
+  {% endif %}
+
+      </a>
+    </div>
+  </div>
+    {% endfor %}
+</div>
+<div class="show-for-medium">
+    <h1 style=" margin-left:30px; font-family:'Oswald', bold; font-size: 20px; color: darkred; opacity: 2.5"><a href="{% url 'gari:alltypes' %}" style="color:darkred;">View All Types <i class="fa fa-arrow-right " style="color:darkred" aria-hidden="true"></i></a> </h1>
+</div>
+<div class="show-for-small-only" style="text-align:center">
+<a href="{% url 'gari:alltypes' %}" class= "" style="font-family:'Oswald', bold; font-size: 20px; color: darkred">View All Types <i class="fa fa-arrow-right " style="color:darkred" aria-hidden="true"></i> </a>
+</div>
+    </div>
+    </section>
+
+    <section style="background-color: #f8e9a1">
+
+<div class="content">
+<div class="wording">
+    {% load make_tag %}
+    {% get_makes %}
+<h5 style=" margin-left:25px; font-family:'Oswald', bold; font-size: 25px; color: black; font-weight: bold">Top Brands</h5>
+</div>
+<div class="grid-x grid-padding-x">
+    {% for make in makes %}
+  <div class="cell large-2 small-4 medium-4">
+    <div class="featured-image-block column">
+     <a href="{{ make.get_absolute_url }}">
+         {% if make.logo %}
+    <img src="{{make.logo.url}}">
+                   <p class="text-center featured-image-block-title">{{ make.name }}</p>
+  {% endif %}
+
+      </a>
+    </div>
+  </div>
+    {% endfor %}
+</div>
+<div class="show-for-medium">
+    <h1 style=" margin-left:30px; font-family:'Oswald', bold; font-size: 20px; color: darkred; opacity: 2.5"><a href="{% url 'gari:allbrands' %}" style="color:darkred;">View All Brands <i class="fa fa-arrow-right " style="color:darkred" aria-hidden="true"></i></a> </h1>
+</div>
+<div class="show-for-small-only" style="text-align:center">
+<a href="{% url 'gari:allbrands' %}" class= "" style="font-family:'Oswald', bold; font-size: 20px; color: darkred">View All Brands <i class="fa fa-arrow-right " style="color:darkred" aria-hidden="true"></i> </a>
+</div>
+    </div>
+    </section>
+
+{% endblock %}
+
+{% endblock %}
+

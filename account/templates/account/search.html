@@ -1,0 +1,80 @@
+{% extends 'account/main.html' %}
+{% load staticfiles %}
+{% block title_block %}
+    Search
+    {% endblock %}
+{% block body_block %}
+
+{% block content %}
+{% if filter.qs %}
+    <br>
+<div class="cell small-6 large-10">
+<div class="grid-container">
+<p>{{ filter.qs.count }} result{{ filter.qs|pluralize }} found</p>
+        <div class="grid-x grid-padding-x small-up-2 medium-up-4 large-up-4">
+         {% for user in user  %}
+
+  <div class="cell">
+    <div class="card card-product-hover">
+        <a href="{{ user.get_absolute_url }}" >
+          <img src="{% if user.profile.photo %}{{ user.profile.photo.url }}{% else %}{% static "aejeong/display/noppp.jpg" %}{% endif %}">
+                </a>
+
+  <div class="card-product-hover-icons">
+
+    <a href="#"><i class="fa fa-star-o"></i></a>
+    <a href="#"><i class="fa fa-envelope-o"></i></a>
+  </div>
+  <div class="card-product-hover-details">
+    <h3 class="card-product-hover-title">{{ user.username|capfirst }},{{ user.profile.age }}</h3>
+    <span class="card-product-hover-price">{{ user.profile.country.name }}</span>
+
+  </div>
+</div>
+
+
+
+
+
+  </div>
+        {% endfor %}
+        </div>
+
+
+      </div>
+           {% if user.has_other_pages %}
+<ul class="pagination pagination-circular center" role="navigation" aria-label="Pagination">
+    {% if user.has_previous %}
+          <li><a href="?page={{ user.previous_page_number }}" aria-label="Previous Page">« <span class="show-for-sr">Previous page</span></a></li>
+        {% else %}
+  <li class="disabled">« <span class="show-for-sr">Previous page</span></li>
+    {% endif %}
+
+{% for i in user.paginator.page_range %}
+{% if user.number == i %}
+  <li class="current"><span class="show-for-sr">You're  on page</span>{{ i }}</li>
+{% else %}
+<li><a href="?page={{ i }}" aria-label="Page">{{ i }}</a></li>
+{% endif %}
+{% endfor %}
+{% if user.has_next %}
+  <li><a href="?page={{ user.next_page_number }}&" aria-label="Next page">» <span class="show-for-sr">Next page</span></a></li>
+{% else %}
+<li class="disabled">» <span class="show-for-sr">Next page</span></li>
+{% endif %}
+</ul>
+{% endif %}
+</div>
+
+
+</div>
+    {% else %}
+    <p>No movie or series found <a href="{% url 'search' %}">Edit Your Search</a> </p>
+    {% endif %}
+
+
+
+<br>
+
+{% endblock %}
+{% endblock %}

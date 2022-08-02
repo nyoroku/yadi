@@ -1,0 +1,88 @@
+{% extends "gari/main.html" %}
+{% block title %}
+Sign up
+{% endblock %}
+{% block content %}
+
+<div class="grid-container" >
+<form class="callout text-center" style="font-family: Oswald, bold; color: white;  background-color: #708090;" method="post" enctype="multipart/form-data">
+  <h2>Join As A Dealer</h2>
+     {% if form.non_field_errors %}
+              <p><span class="error">
+              {{ form.non_field_errors|join:", " }}
+              </span></p>
+              {% endif %}
+               <p>{% if form.username.errors %}
+              <span class="error">{{ form.username.errors|join:", " }}</span>
+              {% endif %}</p>
+              {{ form.username.label_tag }}
+              {{ form.username }}
+              <p>{% if form.first_name.errors %}
+              <span class="error">{{ form.first_name.errors|join:", " }}</span>
+              {% endif %}</p>
+              {{ form.first_name.label_tag }}
+              {{ form.first_name }}
+             <p>{% if form.last_name.errors %}
+              <span class="error">
+              {{ form.last_name.errors|join:", " }}
+             </span>
+               {% endif %}</p>
+
+              {{ form.last_name.label_tag }}
+              {{ form.last_name }}
+
+              <p>{% if form.email.errors %}
+              <span class="error">
+              {{ form.email.errors|join:", " }}
+             </span>
+               {% endif %}</p>
+              {{ form.email.label_tag }}
+              {{ form.email }}
+             <p>{% if form.number.errors %}
+              <span class="error">
+              {{ form.number.errors|join:", " }}
+             </span>
+               {% endif %}</p>
+              {{ form.number.label_tag }}
+              {{ form.number }}
+              <p>{% if form.company.errors %}
+              <span class="error">
+              {{ form.company.errors|join:", " }}
+             </span>
+               {% endif %}</p>
+              {{ form.company.label_tag }}
+              {{ form.company }}
+              <p>{% if form.county.errors %}
+              <span class="error">
+              {{ form.county.errors|join:", " }}
+             </span>
+               {% endif %}</p>
+              {{ form.county.label_tag }}
+              {{ form.county }}
+             <p>{% if form.password1.errors %}
+             <span class="error">
+            {{ form.passsword1.errors|join:", " }}
+            </span>
+            {% endif %}</p>
+          {{ form.password1.label_tag }}
+              {{ form.password1 }}
+
+          <p>{% if form.password2.errors %}
+             <span class="error">
+            {{ form.passsword2.errors|join:", " }}
+            </span>
+            {% endif %}</p>
+          {{ form.password2.label_tag }}
+              {{ form.password2 }}
+              {% csrf_token %}
+
+
+  <input class="button  expanded" type="submit" value="Sign up">
+<p>If you already have an account login <a href="#">here</a></p>
+</form>
+
+
+
+
+</div>
+{% endblock %}

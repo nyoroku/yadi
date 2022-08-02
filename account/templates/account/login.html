@@ -1,0 +1,21 @@
+{% extends "account/main.html" %}
+{% block title %}Log-in{% endblock %}
+{% block content %}
+<form class="log-in-form">
+  <h4 class="text-center">Log in with your username or email account</h4>
+  <label for="{{ form.username.label_tag }}">Username or Email
+      {{ form.username }}
+    <input type="text" placeholder="somebody@example.com">
+  </label>
+  <label for="{{ form.password.label_tag }}">Password
+      {{ form.password }}
+    <input type="password" placeholder="Password">
+  </label>
+
+  <p class="text-center"><a href="#">Forgot your password?</a></p>
+</form>
+
+
+
+
+{% endblock %}

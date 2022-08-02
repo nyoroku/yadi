@@ -1,0 +1,78 @@
+{% extends 'account/main.html' %}
+{% load staticfiles %}
+{% block title_block %}
+
+    {% endblock %}
+{% block body_block %}
+
+{% block content %}
+<a href="{% url 'images:image_upload' %}"> <button type="button" class="button hollow topbar-responsive-button">
+             Upload Photo</button></a>
+{% if images %}
+<div class="grid-container">
+
+<div class="grid-x grid-margin-x grid-margin-y">
+
+
+
+
+
+
+
+{% for image in images %}
+        {% if image.picture %}
+<div class="cell large-3">
+     <a href="{{ image.get_absolute_url }}"><img class="img-responsive" src="{{ image.picture.url }}" alt="My image"/>
+     </a>
+</div>
+
+        {% endif %}
+{% endfor %}
+    </div>
+
+
+
+
+</div>
+
+    <br>
+
+
+
+
+
+
+{% else %}
+<p>You haven't upload any image yet</p>
+{% endif %}
+        {% if images.has_other_pages %}
+<ul class="pagination pagination-circular" role="navigation" aria-label="Pagination">
+    {% if images.has_previous %}
+          <li><a href="?page={{ images.previous_page_number }}" aria-label="Previous Page">« <span class="show-for-sr">Previous page</span></a></li>
+        {% else %}
+  <li class="disabled">« <span class="show-for-sr">Previous page</span></li>
+    {% endif %}
+
+{% for i in images.paginator.page_range %}
+{% if images.number == i %}
+  <li class="current"><span class="show-for-sr">{{ i }}</span></li>
+{% else %}
+<li><a href="?page={{ i }}" aria-label="Page">{{ i }}</a></li>
+{% endif %}
+{% endfor %}
+{% if images.has_next %}
+  <li><a href="?page={{ images.next_page_number }}" aria-label="Next page">» <span class="show-for-sr">Next page</span></a></li>
+{% else %}
+<li class="disabled">» <span class="show-for-sr">Next page</span></li>
+{% endif %}
+</ul>
+{% endif %}
+{% endblock %}
+
+{% endblock %}
+
+
+
+
+
+

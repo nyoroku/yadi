@@ -1,0 +1,53 @@
+{% extends 'account/main.html' %}
+{% block title %}Log-in{% endblock %}
+{% block content %}
+
+{% if form.errors %}
+<p>
+Your username and password didn't match.
+Please try again.
+</p>
+{% else %}
+<p>Please, use the following form to log-in. If you don't have an
+account <a href="{% url "register" %}">Sign Up Here</a></p>
+{% endif %}
+ <div class="grid-container">
+  <div class="grid-x">
+      <div class="cell small-6 large-6">
+<form method="post" action="{% url 'login' %}">
+{% csrf_token %}
+  <div class="sign-in-form">
+    <h4 class="text-center">Sign In using Username Or Email</h4>
+
+    {{ form.username.label_tag }}
+
+
+      {{ form.username }}
+
+
+    {{ form.password.label_tag }}
+      {{ form.password }}
+
+    <button type="submit" class="sign-in-form-button">Sign In</button>
+
+  </div>
+<p class="text-center"><a href="{% url 'password_reset' %}">Forgot your password?</a></p>
+</form>
+      </div>
+      <div class="cell small-6 large-6 login-box-social-section">
+      <div class="login-box-social-section-inner">
+        <span class="login-box-social-headline">Sign in with<br />your social account</span>
+        <a href="{% url "social:begin" "facebook"%}" class="login-box-social-button-facebook">Sign up with facebook</a>
+        <a href="{% url "social:begin" "twitter"%}" class="login-box-social-button-twitter">Sign up with twitter</a>
+        <a class="login-box-social-button-google">Sign up with Google+</a>
+      </div>
+    </div>
+  </div>
+ </div>
+
+
+
+
+
+
+{% endblock %}

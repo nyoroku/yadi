@@ -1,0 +1,199 @@
+{% extends 'gari/main.html' %}
+{% load staticfiles %}
+{% block title_block %}
+    {{ make.name }}
+    {% endblock %}
+{% block body_block %}
+
+{% block content %}
+<div class="content">
+<div class="wording">
+   <div class="grid-container">
+   <div class="card profile-card-action-icons2">
+  <div class="card-section">
+    <div class="profile-card-header">
+      <div class="profile-card-avatar">
+          {% if make.logo %}
+        <img class="avatar-image" src="{{ make.logo.url }}" alt="dealer-pic">
+          {% endif %}
+
+      </div>
+      <div class="profile-card-author">
+          <h4 class="author-title"><strong>{{ make.name|capfirst }} Cars, SUVs, Pick Ups, Trucks, Van, MPVs</strong></h4>
+
+
+      </div>
+
+    </div>
+    <div class="profile-card-about">
+
+
+      <div class="callout">
+  <h4><strong>About {{ make.name|capfirst }}</strong></h4>
+  <p class="p">{{ make.description }} </p><br>
+
+</div>
+      </div>
+    </div>
+
+  </div>
+
+
+    </div>
+
+<h5 style=" margin-left:25px; font-family:'Oswald', bold; font-size: 25px; color: black; font-weight: bold">{{ make.name }} Models</h5>
+</div>
+<div class="grid-x grid-padding-x">
+    {% for model in models %}
+  <div class="cell large-3 small-12 medium-6">
+   <div class="card-flex-article card">
+  <div class="card-image">
+      {% if model.picture %}
+          <a href="{{ model.get_absolute_url }}"><img src="{{ model.picture.url }}"></a>
+
+     <span class="label alert card-tag"></span>
+    {% endif %}
+  </div>
+  <div class="card-section">
+    <h3 class="article-title">{{ model.name }}</h3>
+    <div class="article-details">
+      <span class="website">Price range Ksh {{ model.lower_price }}-{{ model.higher_price }}</span>
+
+
+    </div>
+    <p class="article-summary"></p>
+  </div>
+
+
+</div>
+
+
+  </div>
+    {% endfor %}
+</div>
+
+</div>
+    {% if deals %}
+<div class="content">
+<div class="wording">
+
+<h5 style=" margin-left:25px; font-family:'Oswald', bold; font-size: 25px; color: black; font-weight: bold">{{ make.name }} Deals</h5>
+</div>
+
+<div class="deals">
+    {% for deal in deals %}
+ <div class="card-flex-article card flex-container">
+ <a href="{{ deal.get_absolute_url }}">
+  <div class="card-image">
+  {% if deal.picture %}
+    <img src="{{deal.picture.url}}">
+  {% endif %}
+    {% if deal.sponsored == True %}
+
+    <span class="label alert card-tag">Top Ad</span>
+    {% endif %}
+  </div>
+  <div class="card-section">
+      <h3 class="article-title" style="color: black"> {{deal.name}}</h3>
+
+    <div class="article-details">
+
+
+
+    </div>
+    <p class="article-summary" style="font-family: Merriweather; color: darkgrey">{{ deal.county|capfirst }}</p>
+  </div>
+ </a>
+  </div>
+
+    {% endfor %}
+ </div>
+<div class="show-for-medium">
+    <h1 style=" margin-left:30px; font-family:'Oswald', bold; font-size: 20px; color: darkred; opacity: 2.5"><a href="#" style="color: darkred">View All Deals <i class="fa fa-arrow-right " style="color:darkred" aria-hidden="true"></i></a> </h1>
+</div>
+<div class="show-for-small-only" style="text-align:center">
+<a href="" class= "" style="font-family:'Oswald', bold; font-size: 20px; color: darkred">View All Deals <i class="fa fa-arrow-right " style="color:darkred" aria-hidden="true"></i> </a>
+</div>
+    </div>
+    {% endif %}
+
+    {% if dealers %}
+<div class="content">
+<div class="wording">
+
+<h5 style=" margin-left:25px; font-family:'Oswald', bold; font-size: 25px; color: black; font-weight: bold">Top {{ make.name }} dealers in Kenya</h5>
+</div>
+
+<div class="deals">
+    {% for dealer in dealers %}
+ <div class="card-flex-article card flex-container">
+ <a href="{{ dealer.get_absolute_url }}">
+  <div class="card-image">
+  {% if dealer.logo %}
+    <img src="{{dealer.logo.url}}">
+  {% endif %}
+    {% if dealer.sponsored == True %}
+
+    <span class="label alert card-tag">Top Ad</span>
+    {% endif %}
+  </div>
+  <div class="card-section">
+      <h3 class="article-title" style="color: black"> {{dealer.company}}</h3>
+
+    <div class="article-details">
+
+
+
+    </div>
+    <p class="article-summary" style="font-family: Merriweather; color: darkgrey">{{ dealer.county|capfirst }}</p>
+  </div>
+ </a>
+  </div>
+
+    {% endfor %}
+ </div>
+<div class="show-for-medium">
+    <h1 style=" margin-left:30px; font-family:'Oswald', bold; font-size: 20px; color: darkred; opacity: 2.5"><a href="#" style="color: darkred">View All Dealers <i class="fa fa-arrow-right " style="color:darkred" aria-hidden="true"></i></a> </h1>
+</div>
+<div class="show-for-small-only" style="text-align:center">
+<a href="" class= "" style="font-family:'Oswald', bold; font-size: 20px; color: darkred">View All Dealers <i class="fa fa-arrow-right " style="color:darkred" aria-hidden="true"></i> </a>
+</div>
+    </div>
+{% endif %}
+    {% if news %}
+        <div class="content">
+<div class="article-row-section">
+  <div class="article-row-section-inner">
+
+    <h2 class="article-row-section-header">{{ make.name }} News</h2>
+      {% for new in news %}
+    <a href="{{ new.get_absolute_url }}">
+      <article class="article-row">
+        <div class="article-row-img">
+            {% if new.picture %}
+          <img src="{{ new.picture.url }}" alt="news" />
+            {% endif %}
+        </div>
+        <div class="article-row-content">
+          <h5 class="article-row-content-header" style="font-family: Roboto, Bold; font-size: 25px; color: blue">{{ new.title }}</h5>
+
+          <p class="article-row-content-description">{{ new.text|truncatewords:10 }}</p>
+
+
+
+        </div>
+      </article>
+    </a>
+      {% endfor %}
+
+  </div>
+
+</div>
+<div style="text-align:center">
+<a href="#" class= "hollow button large">View All News</a>
+</div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% endblock %}

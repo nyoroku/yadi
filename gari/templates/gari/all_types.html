@@ -1,0 +1,38 @@
+ {% extends 'gari/main.html' %}
+{% load staticfiles %}
+{% block title_block %}
+ {% load humanize %}
+    {% load templatehelper %}
+    Makes
+    {% endblock %}
+{% block body_block %}
+
+{% block content %}
+<section style="background-color: whitesmoke">
+
+<div class="content">
+<div class="wording">
+    {% load type_tag %}
+    {% get_types %}
+<h5 style=" margin-left:25px; font-family:'Oswald', bold; font-size: 25px; color: black; font-weight: bold">Body Types</h5>
+</div>
+<div class="grid-x grid-padding-x">
+    {% for type in types %}
+  <div class="cell large-2 small-6 medium-4">
+    <div class="featured-image-block column">
+     <a href="{{ type.get_absolute_url }}">
+         {% if type.picture %}
+    <img src="{{type.picture.url}}">
+                   <p class="text-center featured-image-block-title">{{ type.name }}</p>
+  {% endif %}
+
+      </a>
+    </div>
+  </div>
+    {% endfor %}
+</div>
+
+    </div>
+    </section>
+{% endblock %}
+{% endblock %}

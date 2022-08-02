@@ -1,0 +1,28 @@
+{% extends "gari/main.html" %}
+{% block title %}
+<p>Offers</p>
+{% endblock %}
+{% block content %}
+<h1 style="text-align: center">
+Send Message
+
+</h1>
+<div class="module">
+
+<form action="." method="post" enctype="multipart/form-data">
+    <div class="grid-container">
+        <h2>Offer</h2>
+      <table style="background-color: grey">
+{{ form.as_table }}
+      </table>
+          <button type="submit" class="primary button expanded search-button">
+      Make Offer
+    </button>
+
+
+    </div>
+{% csrf_token %}
+
+</form>
+</div>
+{% endblock %}

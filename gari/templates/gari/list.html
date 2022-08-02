@@ -1,0 +1,107 @@
+{% extends 'gari/main.html' %}
+{% load staticfiles %}
+{% block title_block %}
+    Vehicles
+    {% endblock %}
+{% block body_block %}
+
+{% block content %}
+<h5 class="center" style=" margin-top: 1.5%; margin-bottom: 0.001%; font-family: 'Oswald',Bold; font-size: 40px; text-align: center; color: darkred">My Vehicle List</h5>
+{% if object_list %}
+   <h5>{{ object_list.count }} Vehicle{{ premises|pluralize }}</h5>
+<table>
+<thead>
+<tr style="font-family: Oswald, bold; color: darkblue">
+    <th width="100">Name</th>
+    <th width="50">Year</th>
+    <th width="50">Price</th>
+    <th width="50">Make</th>
+    <th width="50">Model</th>
+    <th width="10">County</th>
+    <th width="10">Mileage</th>
+    <th width="10">Color</th>
+    <th width="10">Availability</th>
+    <th width="10">Status</th>
+    <th width="50">Make Changes</th>
+
+</tr>
+
+</thead>
+<tbody>
+{% for vehicle in object_list %}
+<tr>
+    <td width="100"><a href="{% url "gari:vehicle_edit" vehicle.id %}">{{ vehicle.name }}</a></td>
+<td>{{ vehicle.year }}</td>
+<td>{{ vehicle.price }}</td>
+<td>{{ vehicle.make }}</td>
+<td>{{ vehicle.model }}</td>
+<td width="10">{{  vehicle.county }}</td>
+<td width="10">{{ vehicle.mileage }}</td>
+ <td width="10">{{  vehicle.color }}</td>
+<td width="10">{{ vehicle.availability }}</td>
+    <td width="10">{{  vehicle.status }}</td>
+
+
+<td width="20"> <h5 style="font-family: Merriweather, serif; font-weight: bold; font-size: 15px; color: red; text-align: center">
+<a href="{% url 'gari:delete' vehicle.id %}">Delete <i class="fa fa-remove " style="color:#002C3E" aria-hidden="true"></i></a>&#8226;
+    <a href="{% url "gari:vehicle_image_update" vehicle.id %}">Photos<i class="fa fa-image " style="color:#002C3E" aria-hidden="true"></i></a>
+</h5></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+{% else %}
+<h5 style="text-align: center">Add your first vehicle</h5>
+{% endif %}
+
+
+
+     {% if page_obj.has_other_pages %}
+    <ul class="pagination-pointed pagination text-center" role="navigation" aria-label="Pagination">
+    {% if page_obj.has_previous %}
+        <li class="pagination-previous"><a class="pagination-pointed-button" href="?page={{ page_obj.previous_page_number }}" >Previous <span class="show-for-sr">Page</span></a></li>
+        {% else %}
+  <li class="pagination-previous disabled">Previous <span class="show-for-sr">Page</span></li>
+        {% endif %}
+    {% for i in  page_obj.paginator.page_range %}
+    {% if page_obj.number == i %}
+  <li class="current"><span class="show-for-sr">You're on page</span> {{ i }}</li>
+        {% else %}
+  <li><a class="pagination-pointed-button" href="?page={{ i }}" aria-label="Page 2">{{ i }}</a></li>
+  {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+  <li class="pagination-next"><a class="pagination-pointed-button" href="?page={{ page_obj.next_page_number }}" aria-label="Next page">Next <span class="show-for-sr">page</span></a></li>
+        {% endif %}
+</ul>
+    {% endif %}
+    <div class="grid-container">
+    <a href="{% url 'gari:vehicle_add' %}" class="button expanded" style="text-align: center">
+    Add A New Vehicle
+    </a>
+    </div>
+    {% if tag.name in tag %}
+        {% if object_list.has_other_pages %}
+    <ul class="pagination-pointed pagination text-center" role="navigation" aria-label="Pagination">
+    {% if object_list.has_previous %}
+        <li class="pagination-previous"><a class="pagination-pointed-button" href="?page={{ object_list.previous_page_number }}" >Previous <span class="show-for-sr">Page</span></a></li>
+        {% else %}
+  <li class="pagination-previous disabled">Previous <span class="show-for-sr">Page</span></li>
+        {% endif %}
+    {% for i in  object_list.paginator.page_range %}
+    {% if object_list.number == i %}
+  <li class="current"><span class="show-for-sr">You're on page</span> {{ i }}</li>
+        {% else %}
+  <li><a class="pagination-pointed-button" href="?page={{ i }}" aria-label="Page 2">{{ i }}</a></li>
+  {% endif %}
+    {% endfor %}
+    {% if object_list.has_next %}
+  <li class="pagination-next"><a class="pagination-pointed-button" href="?page={{ object_list.next_page_number }}" aria-label="Next page">Next <span class="show-for-sr">page</span></a></li>
+        {% endif %}
+</ul>
+    {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% endblock %}

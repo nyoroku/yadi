@@ -1,0 +1,30 @@
+{% extends "account/main.html" %}
+{% block title %}{{ image.caption }}{% endblock %}
+{% block content %}
+<div class="container">
+<div class="section white">
+<div class="col s5 pull-s7">
+         <span class="flow-text center">
+             {{ image.description }}
+         </span>
+       </div>
+
+       <div class="row">
+
+    <div class="col s12 m7 ">
+      <div class="card" style="left: 100px">
+        <div class="card-image">
+            {% if image.picture %}
+        <a href="{{ image.get_absolute_url }}"><img class="img-responsive" src="{{ image.picture.url }}" alt="My image"/>
+        </a>
+     {% endif %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+{% endblock %}
+

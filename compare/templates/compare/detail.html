@@ -1,0 +1,48 @@
+{% extends "gari/main.html" %}
+{% load static %}
+{% block title %}
+Compare
+{% endblock %}
+{% block content %}
+<h1>Compare</h1>
+<table class="cart">
+<thead>
+<tr>
+<th>Image</th>
+<th>Product</th>
+<th>Quantity</th>
+<th>Remove</th>
+<th>Unit price</th>
+<th>Price</th>
+</tr>
+</thead>
+<tbody>
+{% for item in compare %}
+{% with vehicle=item.vehicle %}
+    {{ vehicle.name }}
+<tr>
+<td>
+<a href="{{ vehicle.get_absolute_url }}">
+<img src="{% if vehicle.picture %}{{ vehicle.picture.url}}{% else %}{% static "img/no_image.png" %}{% endif %}">
+</a>
+</td>
+<td>{{ vehicle.name }}</td>
+
+<td><a href="{% url "compare:compare_remove" vehicle.id%}">Remove</a></td>
+
+</tr>
+{% endwith %}
+{% endfor %}
+<tr class="total">
+<td>Total</td>
+<td colspan="4"></td>
+
+</tr>
+</tbody>
+</table>
+<p class="text-right">
+<a href="{% url "gari:allvehicles" %}" class="button
+light">Add another to compare</a>
+
+</p>
+{% endblock %}

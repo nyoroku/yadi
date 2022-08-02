@@ -1,0 +1,96 @@
+{% extends "account/main.html" %}
+{% block title %}Edit your account{% endblock %}
+{% block content %}
+
+
+    <div class="grid-x" xmlns="http://www.w3.org/1999/html">
+        <div class="grid-container">
+    <form method="post" enctype="multipart/form-data">
+    <div class="translucent-form-overlay">
+
+    <div class="cell small-6 large-12">
+
+
+    <h3>Edit Profile</h3>
+
+
+    <div class="row columns">
+      <label for="{{ user_form.username.label_tag }}">Username
+
+     {{ user_form.username }}
+
+      </label>
+    </div>
+    <div class="row columns">
+      <label for="{{ user_form.first_name.label_tag }}">Firstname
+       {{ user_form.first_name }}
+
+      </label>
+    </div>
+        <div class="row columns">
+      <label for="{{ user_form.last_name.label_tag }}">Firstname
+       {{ user_form.last_name }}
+
+      </label>
+    </div>
+      <div class="row columns">
+      <label for="{{ profile_form.gender.label_tag }}">Gender
+       {{ profile_form.gender }}
+
+      </label>
+      </div>
+      <div class="row columns">
+      <label for="{{ profile_form.date_of_birth.label_tag }}">Date of Birth
+       {{ profile_form.date_of_birth }}
+
+      </label>
+      </div>
+      <div class="row columns">
+      <label for="{{ profile_form.photo.label_tag }}">Gender
+       {{ profile_form.photo }}
+
+      </label>
+      </div>
+      <div class="row columns">
+      <label for="{{ profile_form.country.label_tag }}">Country
+       {{ profile_form.country }}
+
+      </label>
+      </div>
+
+      <div class="row">
+      <label for="{{ user_form.email.label_tag }}"  class="columns small-12">Email</label>
+        {{ user_form.email }}
+
+      </div>
+<div class="cell small-6 large-12">
+          <div class="row">
+      <label for="{{ profile_form.about_me.label_tag }}"  class="columns small-12">About Me</label>
+        {{ profile_form.about_me }}
+
+      </div>
+      <div class="row columns">
+      {{ profile_form.look_for.label_tag }}
+       {{ profile_form.look_for }}
+
+
+      </div>
+      <div class="row columns">
+      <label for="{{ profile_form.looking_for_in_partner.label_tag }}">Gender
+       {{ profile_form.looking_for_in_partner }}
+
+      </label>
+      </div>
+</div>
+
+   {% csrf_token %}
+    <button type="submit" class="primary button expanded search-button">
+      Update Profile
+    </button>
+
+</div>
+    </div>
+        </form>
+    </div>
+    </div>
+{% endblock %}

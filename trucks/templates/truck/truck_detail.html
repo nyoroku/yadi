@@ -1,0 +1,209 @@
+{% extends 'gari/main.html' %}
+{% load staticfiles %}
+{% block content %}
+    {% load humanize %}
+
+
+
+<div class="grid-container fluid">
+
+<div class="grid-x grid-margin-x">
+
+
+<div class="cell large-6 small-12 medium-12">
+<div>
+<ul class="pgwSlider">
+     {% for photo in image %}
+     {% if photo.image %}
+    <li><img class="img-responsive" src="{{ photo.image.url }}"></li>
+    {% endif %}
+ {% endfor %}
+
+</ul>
+<div>
+
+<bdi class="descip" style="padding:20px; position: inherit; float: none;">
+<h5 style=" font-family:'Merriweather', serif; font-size: 20px; color: black; font-weight: bold; ">Ksh{{ vehicle.price|intcomma }}</h5>
+<h5 style=" font-family:'Merriweather', serif; font-size: 16px; color: midnightblue; font-weight: normal"> {{ vehicle.name }}</h5>
+</bdi>
+<div class="md-tabs">
+  <div class="mobile-nav-bar title-bar">
+
+    <div class="title-bar-center">
+      <span class="title-bar-text">Vehicle Information</span>
+    </div>
+
+  </div>
+
+  <ul class="tabs" data-responsive-accordion-tabs="tabs small-accordion medium-tabs large-tabs" id="collapsing-tabs" data-allow-all-closed="true" data-multi-expand="true">
+    <li class="tabs-title is-active"><a href="#panel1c" aria-selected="true">Description</a></li>
+    <li class="tabs-title"><a href="#panel2c">Overview</a></li>
+    <li class="tabs-title"><a href="#panel3c">Specification</a></li>
+
+
+  </ul>
+
+  <div class="tabs-content" data-tabs-content="collapsing-tabs">
+    <div class="tabs-panel is-active" id="panel1c">
+      <p class="p">
+          {{ vehicle.description }}
+      </p>
+    </div>
+    <div class="tabs-panel" id="panel2c">
+      <section class="app-feature-section">
+  <div class="row align-middle">
+
+
+
+    <div class="  medium-9 columns">
+
+      <div class="grid-x grid-margin-x  app-feature-section-features">
+        <div class="cell small-6 app-feature-section-features-block">
+          <i class="fa fa-space-shuttle" aria-hidden="true"></i> <span>{{ vehicle.engine_size }}</span>
+        </div>
+        <div class="cell small-6 app-feature-section-features-block">
+          <i class="fa fa-th" aria-hidden="true"></i> <span>{{ vehicle.gearbox }}</span>
+        </div>
+        <div class="cell small-6 app-feature-section-features-block">
+          <i class="fa fa-car" aria-hidden="true"></i> <span>{{ vehicle.type|capfirst }}</span>
+        </div>
+        <div class="cell small-6 app-feature-section-features-block">
+          <i class="fa fa-fast-forward" aria-hidden="true"></i> <span>{{ vehicle.fuel_type|capfirst }}</span>
+        </div>
+        <div class="cell small-6 app-feature-section-features-block">
+          <i class="fa fa-code" aria-hidden="true"></i> <span>{{ vehicle.seat }} seats</span>
+        </div>
+        <div class="cell small-6 app-feature-section-features-block">
+          <i class="fa fa-openid" aria-hidden="true"></i> <span>{{ vehicle.door }} doors</span>
+        </div>
+          <div class="cell small-6 app-feature-section-features-block">
+          <i class="fa fa-calendar" aria-hidden="true"></i> <span>{{ vehicle.year }} </span>
+        </div>
+        <div class="cell small-6 app-feature-section-features-block">
+          <i class="fa fa-openid" aria-hidden="true"></i> <span>{{ vehicle.mileage }} Kms</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+    </div>
+    <div class="tabs-panel" id="panel3c">
+      {% for feature in features %}
+          <ul style="list-style-type: none">
+              <li style="float: left;  width: 33.3333333%"><i class="fa fa-star " style="color:#002C3E" aria-hidden="true"></i> {{ feature.name }}</li>
+          </ul>
+        {% endfor %}
+    </div>
+
+  </div>
+</div>
+
+</div>
+</div>
+</div>
+
+<div class="cell large-6 medium-12">
+
+    <br>
+{% if vehicle.seller.profile %}
+    <div class="card profile-card-action-icons2">
+  <div class="card-section">
+    <div class="profile-card-header">
+      <div class="profile-card-avatar">
+          {% if vehicle.seller.profile.logo %}
+        <img class="avatar-image" src="{{ vehicle.seller.profile.logo.url }}" alt="dealer-pic">
+          {% endif %}
+      </div>
+      <div class="profile-card-author">
+        <h5 class="author-title">{{ vehicle.seller.profile.company|capfirst }}</h5>
+        <p class="author-description">{{ vehicle.seller.profile.county|capfirst }}</p>
+      </div>
+    </div>
+    <div class="profile-card-about">
+      <h5 class="about-title separator-left">About Dealer</h5>
+      <p class="about-content">
+        {{ vehicle.seller.profile.description }}
+      </p>
+
+
+      </div>
+    </div>
+  </div>
+
+    <p class="show-for-medium">
+    <a href="tel:{{ vehicle.seller.profile.number }}" class= " button large  ">Call Dealer <i class="fa fa-phone " style="color:#002C3E" aria-hidden="true"></i> </a>
+        <a href="#" class= " button large">Message Dealer <i class="fa fa-envelope " style="color:#002C3E" aria-hidden="true"></i></a></p>
+</div>
+
+</div>
+{% else %}
+ <p class="show-for-medium">
+    <a href="tel:{{ vehicle.seller.private.number }}" class= " button large  ">Call Seller <i class="fa fa-phone " style="color:#002C3E" aria-hidden="true"></i> </a>
+        <a href="#" class= " button large">Message Seller <i class="fa fa-envelope " style="color:#002C3E" aria-hidden="true"></i></a></p>
+{% endif %}
+</div><br>
+{% if similar_vehicles %}
+    <div class="content">
+<div class="wording">
+
+<h5 style=" margin-left:25px; font-family:'Merriweather', bold; font-size: 16px; color: darkblue; font-weight: bold">More Vehicles From This Seller</h5>
+</div>
+
+<div class="multiple-items">
+    {% for vehicle in similar_vehicles %}
+<div class="card-flex-article card flex-container">
+ <a href="{{vehicle.get_absolute_url}}">
+  <div class="card-image">
+    <img src="{{vehicle.picture.url}}">
+    {% if vehicle.sponsored == True %}
+
+    <span class="label alert card-tag">Top Ad</span>
+    {% endif %}
+  </div>
+  <div class="card-section">
+      <h3 class="article-title" style="color: black">$ {{vehicle.price}}</h3>
+    <p class="article-tit" style="font-family: 'Merriweather', serif ;font-size: 16px; color: dimgray">{{vehicle.name}}</p>
+    <div class="article-details">
+
+
+      <span class="website">{{ vehicle.mileage }}  <i class="fa fa- " style="color:#002C3E" aria-hidden="true"></i></span> &#8226;
+     <span class="author">{{ vehicle.color }}  <i class="fa fa- " style="color:#002C3E" aria-hidden="true"></i> </span> &#8226;
+      <span class="author">{{ vehicle.year }}  </span>
+
+    </div>
+    <p class="article-summary" style="font-family: Merriweather; color: darkgrey">{{ vehicle.county }}</p>
+  </div>
+ </a>
+  </div>
+    {% endfor %}
+
+    </div>
+    </div>
+{% endif %}
+
+
+
+    {% if vehicle.seller.profile %}
+    <footer class="social-footer show-for-small-only">
+  <div class="social-footer-left" style="margin-left:50px ">
+     <a href="tel:{{ vehicle.seller.profile.number }}" class= " button ">Call Dealer <i class="fa fa-phone " style="color:#002C3E" aria-hidden="true"></i> </a>
+       <a href="#" class= "button">Message Dealer <i class="fa fa-envelope " style="color:#002C3E" aria-hidden="true"></i></a>
+  </div>
+
+</footer>
+    {% else %}
+    <footer class="social-footer show-for-small-only">
+  <div class="social-footer-left" style="margin-left:50px ">
+     <a href="tel:{{ vehicle.seller.profile.number }}" class= " button ">Call Seller <i class="fa fa-phone " style="color:#002C3E" aria-hidden="true"></i> </a>
+       <a href="#" class= "button">Message Seller <i class="fa fa-envelope " style="color:#002C3E" aria-hidden="true"></i></a>
+  </div>
+
+</footer>
+    {% endif %}
+{% endblock %}
+
+
